@@ -1,0 +1,163 @@
+/*copyright by kitgraphiquegratuit.org*/
+body, html  {
+     background:#0d0d0d url(images/fond.png) no-repeat top center;
+	 margin:0;
+	 padding:0;
+	 font-family:Verdana, Arial, Helvetica, sans-serif;
+	 text-align:center;
+	 color:#FFF;
+	 background-attachment: fixed;
+	 font-size:12px;
+}   	
+#conteneur {
+     margin: 0 auto 0;
+	 position: relative;
+	 width: 900px;
+}  	
+#contenu {
+     background-color:#232323;
+	 text-align:left;
+	 width:900px;
+}  
+#header {
+     height:47px; 
+	 background:url(images/header_Razor.jpg) no-repeat top;
+	 width:600px;
+	 padding:115px 0 0 300px;
+} 	   
+#left {
+     float:left;
+	 width:150px;
+	 margin:0;
+	 padding:0;
+	 text-align:center;
+}	
+#right {
+     margin: 0 0 0 170px;
+	 padding: 0 ;
+	 background-color:#585b5d;
+	 width:720px ;
+	 top:10px ;
+	 color:#fff;
+}	
+#pied  {
+     background:url(images/pied.png) no-repeat;
+	 height:34px;
+	 width: 900px;
+	 clear:both;
+	 padding:0 0 5px 0;
+}	   	
+/*menuhorizontal*/ 
+ul#menuhorizon {
+     height: 23px;
+	 list-style-type: none;
+	 margin:0;
+	 padding:0;
+	 width:300px;
+} 	 
+ul#menuhorizon li  {
+     float: left ;
+	 text-align: center ;
+}
+ul#menuhorizon li a {
+     width: 100px;
+	 height: 18px;
+	 color: #fff;
+	 display: block;
+	 text-decoration: none ;
+	 outline:none;
+	 background: url(images/bouton.png) top no-repeat;
+	 font-size:10px;
+	 font-weight:bold;
+	 padding:5px 0 0 0;
+}
+ul#menuhorizon li a:hover {
+     background: url(images/bouton.png) bottom no-repeat;
+}
+/*menu vertical*/
+.hautmenu  {
+     width:158px ;
+	 height:26px;
+	 background:url(images/hautmenu.jpg) no-repeat;
+	 margin:0 0 0 12px;
+	 font-size:13px;
+	 font-weight:bold;
+	 padding:19px 0 0 0;
+	 color:#fff
+}   
+.fondmenu  {
+     width:158px ;
+	 background:url(images/fondmenu.jpg) ;
+	 margin:0 0 0 12px;
+}  
+.basmenu  { 
+     width:158px ;
+	 height:97px;
+	 background:url(images/basmenu.jpg) ;
+	 margin:0 0 0 12px;
+}    
+ul.menu {
+     margin:0 auto;padding:0;width:132px;text-decoration: none;list-style: none;font-weight:bold;}
+ul.menu li a {
+     display: block;
+	 height:19px;
+	 width:132px;
+	 color: #FFF;
+	 text-decoration: none;
+	 background:url(images/menu.png) top no-repeat;
+	 font-weight:bold;font-size:11px;
+	 padding:5px 0 0 0;
+}
+ul.menu li a:hover {
+     background:url(images/menu.png) bottom no-repeat;
+	 color: #FFF;
+}	
+/*contenu*/
+.haut_contenu  {
+	 background: url(images/haut_contenu.jpg);
+	 height:25px;
+	 width:690px;
+	 padding:20px 10px 0 20px;
+	 font-size:12px;
+	 font-weight:bold;
+}
+.fond_contenu  {
+	 background: url(images/fond_contenu.jpg);
+	 width:680px;
+	 padding:0 20px 0 20px;
+}
+.bas_contenu   {
+	 background: url(images/bas_contenu.jpg) no-repeat top;
+	 height:28px;
+	 width:720px;
+}
+/*COpyright*/
+.copyright {
+	 margin :0 auto;
+	 color:#FFF;
+	 font-size:10px;
+	 font-weight:bold;
+text-align:center;
+}   
+.copyright a {
+	 color:#fff;
+	 font-size:10px;
+	 font-weight:bold;
+	 text-decoration: none;
+	 outline:none;
+}
+.copyright a:hover {
+	 color:#df2525;
+	 }   					   
+/*Class g�n�rique*/
+img, p, h1, h2, h3, h4, h5, h6, Span, object, table, td, tr{border:1;margin:0;padding:0} 
+a {
+     text-align: center;
+	 color:#df2525;
+	 font-weight:bold;
+	 text-decoration: none;
+} 
+a:hover {
+	 color: #fff;
+} 
+
