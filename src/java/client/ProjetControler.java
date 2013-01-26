@@ -82,7 +82,7 @@ public class ProjetControler extends HttpServlet {
                 }
             } else {
                 page = "/erreurConnexion.jsp";
-            }
+            }/////
             /* try {
              String nom = request.getParameter("nom");
              String mdp = request.getParameter("mdp1");
