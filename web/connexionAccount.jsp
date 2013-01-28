@@ -1,6 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
- <script language="JavaScript" type="text/javascript" src="./scriptConnexion.js"></script>
+ 
  
 <article>
     <form name="connexionForm" action="Projet.do" method="post" style="width:65%;margin:auto;padding-bottom:15px;" onsubmit="return validation()">

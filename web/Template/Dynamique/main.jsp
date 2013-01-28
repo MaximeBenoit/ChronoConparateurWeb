@@ -22,7 +22,8 @@
                 
                  <!-- Inclure le fichier colonneGauche.jsp -->               
                 <%
-                    String droit = (String) session.getAttribute("sessionDroit");
+                    String droit = (String) request.getAttribute("sessionDroit");
+                    System.out.println("droit = "+droit);
                 %>
                
                 <%        

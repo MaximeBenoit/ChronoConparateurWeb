@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,7 +31,7 @@ public class ProjetControler extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-
+        
         String page = request.getParameter("page");
 
 
@@ -53,7 +54,8 @@ public class ProjetControler extends HttpServlet {
          Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
          }
          }*/
-
+        
+            /*   Xx Debut Connexion xX  */
         if ("Connexion".equals(doAction)) {
             String login = request.getParameter("login");
             String mdp = request.getParameter("mdp");
@@ -67,13 +69,19 @@ public class ProjetControler extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
-
+             
+           
             if (loginBDD != null) {
                 if (loginBDD.equals(login)) {
                     if (mdpBDD.equals(mdp)) {
                         if (IsAdmin == true) {
-                            page = "/TabAdmin.jsp";
+                            
+                            request.setAttribute("sessionDroit", "2");
+                            page = "/TabOperateur.jsp";
+                            
+                           
                         } else {
+                            request.setAttribute("sessionDroit", 1);
                             page = "/accueil.jsp";
                         }
                     } else {
@@ -83,6 +91,8 @@ public class ProjetControler extends HttpServlet {
             } else {
                 page = "/erreurConnexion.jsp";
             }
+            /*   Xx Fin Connexion xX  */
+             
             /* try {
              String nom = request.getParameter("nom");
              String mdp = request.getParameter("mdp1");
