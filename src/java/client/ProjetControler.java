@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import client.Connexion;
 
 /**
  *
@@ -31,7 +32,7 @@ public class ProjetControler extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
-        
+
         String page = request.getParameter("page");
 
 
@@ -54,45 +55,48 @@ public class ProjetControler extends HttpServlet {
          Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
          }
          }*/
-        
-            /*   Xx Debut Connexion xX  */
+
+        /*   Xx Debut Connexion xX  */
         if ("Connexion".equals(doAction)) {
-            String login = request.getParameter("login");
-            String mdp = request.getParameter("mdp");
-            String loginBDD = null;
-            String mdpBDD = null;
-            boolean IsAdmin = false;
-            try {
-                loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getLogin();
-                mdpBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getMdp();
-                IsAdmin = metier.MetierFactory.getOperateurServ().getByLogin(login).isAdmin();
-            } catch (Exception ex) {
-                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-             
+
+//            client.Connexion connexion = new Connexion();
+//            connexion.processRequest(request, response);
            
-            if (loginBDD != null) {
-                if (loginBDD.equals(login)) {
-                    if (mdpBDD.equals(mdp)) {
-                        if (IsAdmin == true) {
-                            
-                            request.setAttribute("sessionDroit", "2");
-                            page = "/TabOperateur.jsp";
-                            
-                           
-                        } else {
-                            request.setAttribute("sessionDroit", 1);
-                            page = "/accueil.jsp";
-                        }
+        String login = request.getParameter("login");
+        String mdp = request.getParameter("mdp");
+        String loginBDD = null;
+        String mdpBDD = null;
+        boolean IsAdmin = false;
+        try {
+            loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getLogin();
+            mdpBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getMdp();
+            IsAdmin = metier.MetierFactory.getOperateurServ().getByLogin(login).isAdmin();
+        } catch (Exception ex) {
+            Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+                  if (loginBDD != null) {
+            if (loginBDD.equals(login)) {
+                if (mdpBDD.equals(mdp)) {
+                    if (IsAdmin == true) {
+
+                        request.setAttribute("sessionDroit", "2");
+                        page = "/TabRapport.jsp";
+
+
                     } else {
-                        page = "/erreurConnexion.jsp";
+                        request.setAttribute("sessionDroit", 1);
+                        page = "/accueil.jsp";
                     }
+                } else {
+                    page = "/erreurConnexion.jsp";
                 }
-            } else {
-                page = "/erreurConnexion.jsp";
             }
+        } else {
+            page = "/erreurConnexion.jsp";
+        }
+        }
             /*   Xx Fin Connexion xX  */
-             
+
             /* try {
              String nom = request.getParameter("nom");
              String mdp = request.getParameter("mdp1");
@@ -113,7 +117,7 @@ public class ProjetControler extends HttpServlet {
              } catch (Exception ex) {
              Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
              }*/
-        }/*
+        /*
         
          if("decoSession".equals(doAction)){
          request.getSession().invalidate();
