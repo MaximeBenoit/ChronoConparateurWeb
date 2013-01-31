@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import metier.Operateur;
+import metier.OperateurService;
 import physique.data.*;
 
 /**
@@ -83,8 +85,9 @@ public class ProjetControler extends HttpServlet {
                             HttpSession httpSession = request.getSession(true);
                             httpSession.setAttribute("sessionDroit", Boolean.TRUE);
                         } else {
-                            request.setAttribute("sessionDroit", "1");
-                            page = "/accueil.jsp";
+                            page = "/TabRapport.jsp";
+                            HttpSession httpSession = request.getSession(true);
+                            httpSession.setAttribute("sessionDroit", Boolean.FALSE);
 
                         }
                     } else {
@@ -98,10 +101,56 @@ public class ProjetControler extends HttpServlet {
             }
         }
         /*   Xx Fin Connexion xX  */
+
+        /*   Xx Début Déconnexion xX  */
         if ("Deconnexion".equals(doAction)) {
             HttpSession httpSession = request.getSession(false);
-            httpSession.setAttribute("sessionDroit", Boolean.FALSE);
+            httpSession.setAttribute("sessionDroit", null);
         }
+        /*   Xx Fin Déconnexion xX  */
+
+        /*   Xx Début Ajout opérateur xX  */
+        if ("Ajout".equals(doAction)) {
+            OperateurService operateurORMService = metier.MetierFactory.getOperateurServ();
+            Operateur operateur = new Operateur();
+
+            String nomInscription = request.getParameter("nomInscription");
+            String prenomInscription = request.getParameter("prenomInscription");
+            String loginInscription = request.getParameter("loginInscription");
+            String mdpInscription = request.getParameter("mdpInscription");
+            String confirmMdpInscription = request.getParameter("confirmMdpInscription");
+            boolean isAdminInscription = false;
+            try {
+                loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(loginInscription).getLogin();
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (loginInscription.equals(loginBDD)) {
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "loginExistant");
+            }
+            if (mdpInscription.equals(confirmMdpInscription)) {
+                operateur.setNom(nomInscription);
+                operateur.setPrenom(prenomInscription);
+                operateur.setLogin(loginInscription);
+                operateur.setMdp(mdpInscription);
+                operateur.setAdmin(isAdminInscription);
+                try {
+                    operateurORMService.addOperateur(operateur);
+                } catch (Exception ex) {
+                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "ProblemeMdp");
+            }
+
+
+
+
+
+        }
+
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer".equals(doAction)) {
 

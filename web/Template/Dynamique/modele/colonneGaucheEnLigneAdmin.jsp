@@ -7,15 +7,16 @@
             <li><a href="Projet.do?page=addAccount">Modifier</a></li>
             <li><a href="Projet.do?page=connexionAccount">Information</a></li>
             <li><a href="Projet.do?page=addAccount">Administration</a></li>
-            <li><a onclick="deco();return false;">Déconexion</a></li>
+           <!-- <li><a onclick="deco();return false;">Déconexion</a></li>-->	
+            <li><a  href="http://localhost:8080/chronoComparateurWeb/Projet.do?do=Deconnexion">Déconexion</a></li>
 
         </ul>
 
         <br />
-        <form method="GET">
+      <!--  <form method="GET">
             <input type="hidden" value="Deconnexion" name="do"/>
             <button type="submit" value="Sub"/>            
-        </form>
+        </form>-->	
 
 
         <%--<ul class="menu"> 
