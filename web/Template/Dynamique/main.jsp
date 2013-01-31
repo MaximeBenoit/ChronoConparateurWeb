@@ -1,4 +1,5 @@
 
+<%@page import="metier.Operateur"%>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
     <head>
         <title>Chrono-comparateur</title>	 
@@ -16,13 +17,10 @@
             <!--******* HEADER *******-->
             <!--******* DIV ENTOURANT COLONNE GAUCHE ET DROITE *******-->	     
             <div id="contenu">
-                <!--******* COLENNE GAUCHE *******-->		   
-
-                
-                
+                <!--******* COLENNE GAUCHE *******-->		    
                  <!-- Inclure le fichier colonneGauche.jsp -->               
                 <%
-                    String droit = (String) request.getAttribute("sessionDroit");
+                    Boolean droit = (Boolean) session.getAttribute("sessionDroit");
                     System.out.println("droit = "+droit);
                 %>
                
@@ -32,12 +30,12 @@
                             <%@ include file="./modele/colonneGaucheHorsLigne.jsp" %>
                 <%                            
                     }if(droit != null){
-                        if(droit.equals("1")){
+                        if(droit.equals(Boolean.FALSE)){
                 %>
                             <%@ include file="./modele/colonneGaucheEnLigne.jsp" %> 
                 <%
                     }
-                        if(droit.equals("2")){
+                        if(droit.equals(Boolean.TRUE)){
                 %>
                             <%@ include file="./modele/colonneGaucheEnLigneAdmin.jsp" %>
                 <%        

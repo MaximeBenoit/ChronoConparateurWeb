@@ -3,19 +3,19 @@
 
     <div class="hautmenu">Menu</div><div class="fondmenu">
         <ul class="menu"> 
-            <li><a href="Projet.do?session=2&page=TabRapport" name="do" value="SupprimerRapport">Supprimer</a></li>
+            <li><a href="Projet.do?page=TabRapport">Rapport</a></li>
             <li><a href="Projet.do?page=addAccount">Modifier</a></li>
             <li><a href="Projet.do?page=connexionAccount">Information</a></li>
             <li><a href="Projet.do?page=addAccount">Administration</a></li>
-            <li><a href="Projet.do">Déconexion</a></li>
+            <li><a onclick="deco();return false;">Déconexion</a></li>
 
         </ul>
 
         <br />
-        <a href="http://fr-fr.facebook.com/login.php" title="" target="_blank"><img src="./Template/Dynamique/images/facebook.png" alt="" /></a>
-        <a href="https://twitter.com/" title="" target="_blank"><img src="./Template/Dynamique/images/twitter.png" alt="" /></a>
-        <a href="" title=""><img src="./Template/Dynamique/images/rss.png" alt="" /></a>
-        <br /><br />
+        <form method="GET">
+            <input type="hidden" value="Deconnexion" name="do"/>
+            <button type="submit" value="Sub"/>            
+        </form>
 
 
         <%--<ul class="menu"> 
@@ -26,7 +26,33 @@
        </ul>
 
         <br />	--%>	
-
+        <script>
+            var http;
+            function createRequest(){
+                var http;
+                if(window.XMLHttpRequest){
+                    //Mozilla,safari,IE7
+                    http = new XMLHttpRequest();  
+                }else if (window.ActiveXobjet)
+                {http=new ActiveXobjet("Microsoft.XMLHTTP");
+                }
+                return http;
+            }
+            function deco(){
+              http = createRequest();
+              http.open('POST', "http://localhost:8080/chronoComparateurWeb/Projet.do?do=Deconnexion", true);
+              http.onreadystatechange = coucou;
+              http.send(null);
+               
+            }
+            function coucou(){
+                if(http.readyState ==4){
+                    if(http.status == 200){
+                        document.getElementById('resultat').innerHTML = http.responseText;
+                    }
+                }
+            }
+        </script>
     </div><div class="basmenu"></div>
 </div>
 <!--******* COLONNE GAUCHE *******-->
