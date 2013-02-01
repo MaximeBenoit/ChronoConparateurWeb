@@ -24,7 +24,7 @@
                     <TH> DateUpdate </TH> 
                     <TH> Montre </TH> 
                     <TH> Client </TH>  
-                    <TH> Select </TH> 
+                    <TH> Opération </TH> 
                 </TR>
                 <%
                     List<metier.Rapport> resp = new ArrayList<metier.Rapport>();

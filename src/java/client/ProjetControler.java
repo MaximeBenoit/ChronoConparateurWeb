@@ -129,7 +129,7 @@ public class ProjetControler extends HttpServlet {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "loginExistant");
             }
-            if (mdpInscription.equals(confirmMdpInscription)) {
+            else if (mdpInscription.equals(confirmMdpInscription)) {
                 operateur.setNom(nomInscription);
                 operateur.setPrenom(prenomInscription);
                 operateur.setLogin(loginInscription);

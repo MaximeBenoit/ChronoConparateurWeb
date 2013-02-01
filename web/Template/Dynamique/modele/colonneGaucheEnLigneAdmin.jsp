@@ -6,13 +6,13 @@
             <li><a href="Projet.do?page=TabRapport">Rapport</a></li>
             <li><a href="Projet.do?page=addAccount">Modifier</a></li>
             <li><a href="Projet.do?page=connexionAccount">Information</a></li>
-            <li><a href="Projet.do?page=addAccount">Administration</a></li>
+            <li><a href="Projet.do?page=TabOperateur">Administration</a></li>
            <!-- <li><a onclick="deco();return false;">Déconexion</a></li>-->	
-            <li><a  href="http://localhost:8080/chronoComparateurWeb/Projet.do?do=Deconnexion">Déconexion</a></li>
+            <li><a  href="http://localhost:8080/chronoComparateurWeb/Projet.do?do=Deconnexion">Déconnexion</a></li>
 
         </ul>
 
-        <br />
+        <br/>
       <!--  <form method="GET">
             <input type="hidden" value="Deconnexion" name="do"/>
             <button type="submit" value="Sub"/>            
@@ -26,7 +26,7 @@
            <li><a href="Projet.do?page=gestionStats">Gestion Statistiques</a></li>
        </ul>
 
-        <br />	--%>	
+        <br />		
         <script>
             var http;
             function createRequest(){
@@ -53,7 +53,7 @@
                     }
                 }
             }
-        </script>
+        </script>--%>
     </div><div class="basmenu"></div>
 </div>
 <!--******* COLONNE GAUCHE *******-->

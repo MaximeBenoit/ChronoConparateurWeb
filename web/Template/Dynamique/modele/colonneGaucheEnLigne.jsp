@@ -3,10 +3,10 @@
 
                <div class="hautmenu">Menu</div><div class="fondmenu">
                     <ul class="menu"> 
-                        <li><a href="#"><% String nom =(String) session.getAttribute("sessionUser");%><%= nom%></a></li>
-                        <li><a href="Projet.do?do=decoSession">Se déconnecter</a></li>
-			<li><a href="#">Test</a></li>
-			<li><a href="Projet.do?do=statistiqueUser">Mes résultats</a></li>
+                        
+			<li><a href="Projet.do?page=TabRapport">Rapport</a></li>
+			<li><a href="Projet.do?do=statistiqueUser">Modifier</a></li>
+                        <li><a  href="http://localhost:8080/chronoComparateurWeb/Projet.do?do=Deconnexion">Déconnexion</a></li>
                     </ul>
              
 			 <br />
