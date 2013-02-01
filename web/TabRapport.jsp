@@ -35,10 +35,10 @@
                                 + "<TH>" + resp.get(i).getDateUpdate() + "</TH>"
                                 + "<TH>" + resp.get(i).getMontre() + "</TH>"
                                 + "<TH>" + resp.get(i).getMontre().getProprietaire().getId() + "</TH>"
-                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerRapport' value='"+resp.get(i).getId()+"'><input type='submit' name='do' value='Supprimer'></form></TH></TR>");}
-                    
+                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerRapport' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Supprimer rapport'></form></TH></TR>");
+                    }
                 %>
-           </TABLE> 
+            </TABLE> 
         </div>
     </body>
 </html>
