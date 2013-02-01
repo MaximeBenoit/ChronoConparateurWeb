@@ -20,10 +20,10 @@
             <TABLE BORDER="1">
                 <CAPTION> Rapport </CAPTION> 
                 <TR> 
-                    <TH> ID </TH> 
-                    <TH> DateUpdate </TH> 
+                    <TH> Référence </TH> 
+                    <TH> Date de modification </TH> 
                     <TH> Montre </TH> 
-                    <TH> Client </TH>  
+                    <TH> Référence client </TH>  
                     <TH> Opération </TH> 
                 </TR>
                 <%

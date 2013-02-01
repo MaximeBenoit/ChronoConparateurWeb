@@ -21,8 +21,8 @@
             <TABLE BORDER="1">
                 <CAPTION> Operateur </CAPTION> 
                 <TR> 
-                    <TH> ID </TH> 
-                    <TH> Administrateur </TH> 
+                    <TH> Référence </TH> 
+                    <TH> Droit </TH> 
                     <TH> Login </TH> 
                     <TH> Mot de passe </TH>  
                     <TH> Nom </TH> 
@@ -37,7 +37,7 @@
                     
                     for (int i = 0; i < resp.size(); i++) {
                         if(resp.get(i).isAdmin()) {
-                            isAdmin = "Administrateur";
+                            isAdmin = "Admin";
                         } else {
                             isAdmin = "Opérateur";
                         }

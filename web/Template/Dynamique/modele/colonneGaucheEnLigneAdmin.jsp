@@ -25,7 +25,6 @@
            <li><a href="#">Gestion Questions</a></li>
            <li><a href="Projet.do?page=gestionStats">Gestion Statistiques</a></li>
        </ul>
-
         <br />		
         <script>
             var http;
