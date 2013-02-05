@@ -18,37 +18,35 @@
             <!--******* DIV ENTOURANT COLONNE GAUCHE ET DROITE *******-->	     
             <div id="contenu">
                 <!--******* COLENNE GAUCHE *******-->		    
-                 <!-- Inclure le fichier colonneGauche.jsp -->               
+                <!-- Inclure le fichier colonneGauche.jsp -->               
                 <%
                     Boolean droit = (Boolean) session.getAttribute("sessionDroit");
-                    System.out.println("droit = "+droit);
+                    System.out.println("droit = " + droit);
                 %>
-               
-                <%        
-                    if(droit == null){
-                %>    
-                            <%@ include file="./modele/colonneGaucheHorsLigne.jsp" %>
-                <%                            
-                    }if(droit != null){
-                        if(droit.equals(Boolean.FALSE)){
-                %>
-                            <%@ include file="./modele/colonneGaucheEnLigne.jsp" %> 
+
                 <%
-                    }
-                        if(droit.equals(Boolean.TRUE)){
+                    if (droit == null) {
+                %>    
+                <%@ include file="./modele/colonneGaucheHorsLigne.jsp" %>
+                <%                    }
+                    if (droit != null) {
+                        if (droit.equals(Boolean.FALSE)) {
                 %>
-                            <%@ include file="./modele/colonneGaucheEnLigneAdmin.jsp" %>
-                <%        
-                        }
+                <%@ include file="./modele/colonneGaucheEnLigne.jsp" %> 
+                <%                    }
+                    if (droit.equals(Boolean.TRUE)) {
+                %>
+                <%@ include file="./modele/colonneGaucheEnLigneAdmin.jsp" %>
+                <%                        }
                     }
                 %>
 
 
-                
-                
-           
-                
-                
+
+
+
+
+
 
                 <!--******* COLONNE GAUCHE *******-->	
 
@@ -60,17 +58,15 @@
 
 
                         <section>                
-                            <% 
+                            <%
                                 String contain = (String) request.getAttribute("contain");
                                 if (contain != null) {
                             %>
                             <jsp:include page="${contain}" flush="false"/> 
-                            <%  
-                                } else {
+                            <%                            } else {
                             %>    
                             <jsp:include page="/accueil.jsp" flush="false"/>             
-                            <% 
-                                }
+                            <%                                }
                             %>
                         </section>
 

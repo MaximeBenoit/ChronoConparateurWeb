@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Connexion {
 
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -58,5 +58,4 @@ public class Connexion {
             page = "/erreurConnexion.jsp";
         }
     }
-
 }

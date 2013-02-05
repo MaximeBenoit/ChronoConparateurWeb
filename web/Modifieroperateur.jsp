@@ -46,15 +46,19 @@
                 <th align="right">Mot de passe :</th>
                 <td colspan="2"><input type="text" name="mdpModification" value="<%= operateur.getMdp()%>"/></td>
             </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <th align="right">Référence :</th>
+                <td colspan="2"><input type="text" name="idModification" value="<%= operateur.getId()%>"/></td>
+            </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Administrateur</th>
                 <% if (operateur.isAdmin()) {
-                   request.setAttribute("param", "checked");
     %>
-                <td colspan="2"><input type="checkbox" name="check" checked /></td>
+                <td colspan="2"><input type="checkbox" name="checkOperateur" checked /></td>
                     <% } else {%>
-                <td colspan="2"><input type="checkbox" /></td>
+                <td colspan="2"><input type="checkbox" name="checkOperateur"  /></td>
                     <% }%>
             </tr>
             <tr>

@@ -35,6 +35,7 @@ public class ProjetControler extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         String loginBDD = null;
+        Long idBDD = null;
         String mdpBDD = null;
         boolean IsAdmin = false;
         String page = request.getParameter("page");
@@ -174,24 +175,44 @@ public class ProjetControler extends HttpServlet {
 
         /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier".equals(doAction)) {
-            Operateur operateur = null;
+            OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
+
+            Operateur operateur = new Operateur();
             String nom = request.getParameter("nomModification");
             String prenom = request.getParameter("prenomModification");
             String login = request.getParameter("loginModification");
             String mdp = request.getParameter("mdpModification");
-            boolean isAdmin;
-            String param =  (String) request.getAttribute("param");
-            if(param.equals("checked")){
-                isAdmin=true;
-            }else{
-                 isAdmin=false;
+            String id = request.getParameter("idModification");
+            boolean admin = false;
+            String param = request.getParameter("checkOperateur");
+            System.out.println("check : " + param);
+            if (param == null) {
+                admin = false;
+            } else {
+                admin = true;
             }
-            System.out.println("admin : "+isAdmin);
-
+            System.out.println("admin : " + admin);
+                operateur.setNom(nom);
+                operateur.setPrenom(prenom);
+                operateur.setLogin(login);
+                operateur.setMdp(mdp);
+                operateur.setAdmin(admin);
+                operateur.setId(Long.parseLong(id));
+                try {
+                    operateurORMService.updateOperateur(operateur);
+                } catch (Exception ex) {
+                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            page = "/TabOperateur.jsp";
         }
+
+        /*   Xx Fin ModifierOperateur xX  */
+
+        /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier Operateur".equals(doAction)) {
             Operateur operateur = null;
             String id = request.getParameter("modifierOperateur");
+            System.out.println("id : " + id);
             if (id == null) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurSuppression");
@@ -209,6 +230,8 @@ public class ProjetControler extends HttpServlet {
                 System.out.println("opérateur : " + operateur);
             }
         }
+        /*   Xx Fin ModifierOperateur xX  */
+
         /*   Xx Debut supprimerOperateur xX  */
         if ("Supprimer operateur".equals(doAction)) {//ModifierOperateur
             String id = request.getParameter("supprimerOperateur");
