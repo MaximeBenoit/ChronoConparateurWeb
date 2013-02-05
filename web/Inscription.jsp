@@ -49,7 +49,6 @@
                 <th align="center" colspan="4"><input type="submit" name="do" value="Ajout"></input><input type= "reset" /></th>                
             </tr>
     </table>
-    
 </form>
 </body>
 </html>

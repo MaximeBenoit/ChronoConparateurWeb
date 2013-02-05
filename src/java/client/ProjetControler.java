@@ -153,44 +153,82 @@ public class ProjetControler extends HttpServlet {
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {
 
-                String id = request.getParameter("supprimerRapport");
-                System.out.println("Suppression id : " + id);
-                if (id == null) {
-                    page = "/erreurConnexion.jsp";
-                    request.setAttribute("erreurPage", "erreurSuppression");
-                } else {
-                    RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
+            String id = request.getParameter("supprimerRapport");
+            System.out.println("Suppression id : " + id);
+            if (id == null) {
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "erreurSuppression");
+            } else {
+                RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
 
-                    try {
-                        rapportORMService.removeRapport(rapportORMService.getById(Long.parseLong(id)));
-                    } catch (Exception ex) {
-                        Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    page = "/TabRapport.jsp";
+                try {
+                    rapportORMService.removeRapport(rapportORMService.getById(Long.parseLong(id)));
+                } catch (Exception ex) {
+                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                page = "/TabRapport.jsp";
+            }
 
         }
         /*   Xx Fin SupprimerRapport xX  */
-        
-               /*   Xx Debut supprimerOperateur xX  */
-        if ("Supprimer operateur".equals(doAction)) {
-                String id = request.getParameter("supprimerOperateur");
-                
-                System.out.println("Suppression id : " + id);
-                if (id == null) {
-                    page = "/erreurConnexion.jsp";
-                    request.setAttribute("erreurPage", "erreurSuppression");
-                } else {
-                   OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
 
-                    try {
-                        operateurORMService.removeOperateur(operateurORMService.getById(Long.parseLong(id)));
-                    } catch (Exception ex) {
-                        Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    page = "/TabOperateur.jsp";
-                }
+        /*   Xx Debut ModifierOperateur xX  */
+        if ("Modifier".equals(doAction)) {
+            Operateur operateur = null;
+            String nom = request.getParameter("nomModification");
+            String prenom = request.getParameter("prenomModification");
+            String login = request.getParameter("loginModification");
+            String mdp = request.getParameter("mdpModification");
+            boolean isAdmin;
+            String param =  (String) request.getAttribute("param");
+            if(param.equals("checked")){
+                isAdmin=true;
+            }else{
+                 isAdmin=false;
             }
+            System.out.println("admin : "+isAdmin);
+
+        }
+        if ("Modifier Operateur".equals(doAction)) {
+            Operateur operateur = null;
+            String id = request.getParameter("modifierOperateur");
+            if (id == null) {
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "erreurSuppression");
+            } else {
+                OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
+
+                try {
+                    operateur = operateurORMService.getById(Long.parseLong(id));
+                    System.out.println("opérateur : " + operateur);
+                    page = "/Modifieroperateur.jsp";
+                    request.setAttribute("operateur", operateur);
+                } catch (Exception ex) {
+                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                System.out.println("opérateur : " + operateur);
+            }
+        }
+        /*   Xx Debut supprimerOperateur xX  */
+        if ("Supprimer operateur".equals(doAction)) {//ModifierOperateur
+            String id = request.getParameter("supprimerOperateur");
+
+            System.out.println("Suppression id : " + id);
+            if (id == null) {
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "erreurSuppression");
+            } else {
+                OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
+
+                try {
+                    operateurORMService.removeOperateur(operateurORMService.getById(Long.parseLong(id)));
+                } catch (Exception ex) {
+                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                page = "/TabOperateur.jsp";
+            }
+        }
+
         /*   Xx Fin supprimerOperateur xX  */
 
         request.setAttribute("contain", page);

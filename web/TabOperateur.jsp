@@ -47,7 +47,9 @@
                                 + "<TH>" + resp.get(i).getMdp()+ "</TH>"
                                  + "<TH>" + resp.get(i).getNom()+ "</TH>"
                                   + "<TH>" + resp.get(i). getPrenom()+ "</TH>"
-                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerOperateur' value='"+resp.get(i).getId()+"'><input type='submit' name='do' value='Supprimer operateur'></form></TH></TR>");}
+                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerOperateur' value='"+resp.get(i).getId()+"'><input type='submit' name='do' value='Supprimer operateur'><br>"
+ + "<input type='hidden' name='modifierOperateur' value='"+resp.get(i).getId()+"'><input type='submit' name='do' value='Modifier Operateur'>"
+ + "</form></TH></TR>");}
                     
                 %>
            </TABLE> 

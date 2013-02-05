@@ -19,7 +19,7 @@
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="center" colspan="4"><input type="submit" name="do" value="Connexion"></input><input type= "reset" /></th>                
+                <th align="center" colspan="4"><input type="submit" name="do" value="Connexion"><input type= "reset" ></th>                
             </tr>
         </table>
     </form>
