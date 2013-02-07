@@ -4,6 +4,7 @@
     Author     : Maxime
 --%>
 
+<%@page import="metier.Rapport"%>
 <%@page import="physique.data.OperateurORMService"%>
 <%@page import="physique.data.PhysiqueDataFactory"%>
 <%@page import="metier.Operateur"%>
@@ -13,58 +14,47 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%
-            Object object = request.getAttribute("operateur");
-            Operateur operateur = (Operateur) object;
+            Object object = request.getAttribute("rapport");
+            Rapport rapport = (Rapport) object;
 
         %>
         <title>Modifier Rapport</title>
     </head>
     <body>
     <center> <h1>Modification rapport</h1></center>
-    <form name="ModifierOperateur" action="Projet.do" method="post" style="width:65%;margin:auto;padding-bottom:15px;" onsubmit="return validation()" >
+    <form name="ModifierRapport" action="Projet.do" method="post" style="width:65%;margin:auto;padding-bottom:15px;" onsubmit="return validation()" >
         <table align="center">
             <tr>
                 <td>&nbsp;</td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="right">Nom :</th>
-                <td colspan="2"><input type="text" name="nomModification"value="<%= operateur.getNom()%>" /></td>
+                <th align="right">Fabricant montre :</th>
+                <td colspan="2"><input type="text" name="fabricantMontre"value="<%= rapport.getMontre().getFabricant() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="right">Prénom :</th>
-                <td colspan="2"><input type="text" name="prenomModification" value="<%= operateur.getPrenom()%>" /></td>
+                <th align="right">Référence montre :</th>
+                <td colspan="2"><input type="text" name="prenomModification" value="<%= rapport.getMontre().getId() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="right">Login :</th>
-                <td colspan="2"><input type="text" name="loginModification"value="<%= operateur.getLogin()%>" /></td>
+                <th align="right">Référence client :</th>
+                <td colspan="2"><input type="text" name="referenceClient"value="<%= rapport.getMontre().getProprietaire().getId() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="right">Mot de passe :</th>
-                <td colspan="2"><input type="text" name="mdpModification" value="<%= operateur.getMdp()%>"/></td>
+                <th align="right">Date de modification :</th>
+                <td colspan="2"><input type="text" name="dateModification" value="<%= rapport.getDateUpdate() %>"/></td>
             </tr>
               <tr>
                 <td>&nbsp;</td>
                 <th align="right">Référence :</th>
-                <td colspan="2"><input type="text" name="idModification" value="<%= operateur.getId()%>"/></td>
+                <td colspan="2"><input type="text" name="idModification" value="<%= rapport.getId()%>"/></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="right">Administrateur</th>
-                <% if (operateur.isAdmin()) {
-    %>
-                <td colspan="2"><input type="checkbox" name="checkOperateur" checked /></td>
-                    <% } else {%>
-                <td colspan="2"><input type="checkbox" name="checkOperateur"  /></td>
-                    <% }%>
-            </tr>
-            <tr>
-                <td>&nbsp;</td>
-                 
-                <th align="center" colspan="4"><input type="submit" name="do" value="Modifier"></input><input type= "reset" /></th>                
+                <th align="center" colspan="4"><input type="submit" name="do" value="Modifier rapport"></input><input type= "reset" /></th>                
             </tr>
         </table>
     </form>
