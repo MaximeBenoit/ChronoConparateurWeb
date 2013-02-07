@@ -24,7 +24,8 @@
     <form name="ModifierOperateur" action="Projet.do" method="post" style="width:65%;margin:auto;padding-bottom:15px;" onsubmit="return validation()" >
         <table align="center">
             <tr>
-                <td>&nbsp;</td>
+                <td>&nbsp;<input type="hidden" name="idModification2" value="<%= operateur.getId()%>" disabled/></td>
+                
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -49,7 +50,7 @@
               <tr>
                 <td>&nbsp;</td>
                 <th align="right">Référence :</th>
-                <td colspan="2"><input type="text" name="idModification" value="<%= operateur.getId()%>"/></td>
+                <td colspan="2"><input type="text" name="idModification" value="<%= operateur.getId()%>" disabled/></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

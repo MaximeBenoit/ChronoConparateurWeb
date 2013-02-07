@@ -1,16 +1,16 @@
 package client;
-
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.faces.context.FacesContext;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import metier.Montre;
 import metier.Operateur;
 import metier.OperateurService;
 import metier.Rapport;
@@ -50,7 +50,7 @@ public class ProjetControler extends HttpServlet {
         }
 
         String doAction = request.getParameter("do");
-
+        String doActionModifierRapport = request.getParameter("doModifierRapport");
         /* if ("Inscription".equals(doAction)) {
          String nom = request.getParameter("nom");
          String password = request.getParameter("mdp1");
@@ -198,6 +198,7 @@ public class ProjetControler extends HttpServlet {
         }
         /*   Xx Fin ModifierRapport xX  */
 
+
        
 
         /*   Xx Debut ModifierOperateur xX  */
@@ -223,7 +224,39 @@ public class ProjetControler extends HttpServlet {
             }
         }
         /*   Xx Fin ModifierOperateur xX  */
+        
+         /*   Xx Debut ModifierRapport xX  */
+        if ("Modifier".equals(doActionModifierRapport)) {
+            RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
+            MontreORMService montreORMService = PhysiqueDataFactory.getMontreORMSrv();
+            
+            Rapport rapport = new Rapport();
+            String fabricantMontre = request.getParameter("fabricantMontre");
+            String referenceMontre = request.getParameter("referenceMontre");
+            String referenceClient = request.getParameter("referenceClient");
+            String reference = request.getParameter("reference");
+            //rapport.getMontre().setFabricant(fabricantMontre);
+            Montre montre = new Montre();
+            try {
+                montre = montreORMService.getById(Long.parseLong(referenceMontre));
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            montre.setId(Long.parseLong(referenceMontre));
+            
+            rapport.setMontre(montre);
+            rapport.setDateUpdate(new Date());
+            rapport.setId(Long.parseLong(reference));
+            try {
+                rapportORMService.updateRapport(rapport);
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            page = "/TabRapport.jsp";
+        }
 
+        /*   Xx Fin ModifierRapport xX  */
+        
          /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier".equals(doAction)) {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
@@ -233,7 +266,8 @@ public class ProjetControler extends HttpServlet {
             String prenom = request.getParameter("prenomModification");
             String login = request.getParameter("loginModification");
             String mdp = request.getParameter("mdpModification");
-            String id = request.getParameter("idModification");
+            String id = request.getParameter("idModification2");
+            
             boolean admin = false;
             String param = request.getParameter("checkOperateur");
             System.out.println("check : " + param);

@@ -35,7 +35,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Référence montre :</th>
-                <td colspan="2"><input type="text" name="prenomModification" value="<%= rapport.getMontre().getId() %>" /></td>
+                <td colspan="2"><input type="text" name="referenceMontre" value="<%= rapport.getMontre().getId() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
@@ -50,11 +50,11 @@
               <tr>
                 <td>&nbsp;</td>
                 <th align="right">Référence :</th>
-                <td colspan="2"><input type="text" name="idModification" value="<%= rapport.getId()%>"/></td>
+                <td colspan="2"><input type="text" name="reference" value="<%= rapport.getId()%>"/></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
-                <th align="center" colspan="4"><input type="submit" name="do" value="Modifier rapport"></input><input type= "reset" /></th>                
+                <th align="center" colspan="4"><input type="submit" name="doModifierRapport" value="Modifier"></input></th>                
             </tr>
         </table>
     </form>
