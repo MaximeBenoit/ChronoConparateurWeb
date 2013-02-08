@@ -47,11 +47,7 @@
                 <th align="right">Date de modification :</th>
                 <td colspan="2"><input type="text" name="dateModification" value="<%= rapport.getDateUpdate() %>"/></td>
             </tr>
-              <tr>
-                <td>&nbsp;</td>
-                <th align="right">Référence :</th>
-                <td colspan="2"><input type="text" name="reference" value="<%= rapport.getId()%>"/></td>
-            </tr>
+                <td colspan="2"><input type="hidden" name="reference" value="<%= rapport.getId()%>"/></td>
             <tr>
                 <td>&nbsp;</td>
                 <th align="center" colspan="4"><input type="submit" name="doModifierRapport" value="Modifier"></input></th>                

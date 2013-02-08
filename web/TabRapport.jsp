@@ -41,10 +41,7 @@
                                 + "<TH>" + sdf.format(resp.get(i).getDateUpdate()) + "</TH>"
                                 + "<TH>" + compoMontre + "</TH>"
                                 + "<TH>" + resp.get(i).getMontre().getProprietaire().getId() + "</TH>"
-                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerRapport' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Supprimer rapport'><br>"
- + "<input type='hidden' name='modifierRapport' value='"+resp.get(i).getId()+"'><input type='submit' name='do' value='Modifier Rapport'>"
- + "</form></TH></TR>");}
-                    
+                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerRapport' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' ></form></TH></TR>");}    
                 %>
             </TABLE> 
         </div>

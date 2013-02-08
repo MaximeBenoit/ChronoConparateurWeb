@@ -179,12 +179,14 @@ text-align:center;
 /*Class g�n�rique*/
 img, p, h1, h2, h3, h4, h5, h6, Span, object, table, td, tr{border:1;margin:0;padding:0} 
 a {
-     text-align: center;
+         text-align: center;
 	 color:#df2525;
 	 font-weight:bold;
 	 text-decoration: none;
+         
 } 
 a:hover {
 	 color: #fff;
 } 
+
 

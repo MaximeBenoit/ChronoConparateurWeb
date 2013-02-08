@@ -17,33 +17,33 @@
             Operateur operateur = (Operateur) object;
 
         %>
-        <title>Modifier opérateur</title>
+        <title>Information opérateur</title>
     </head>
     <body>
-    <center> <h1>Modification opérateur</h1></center>
+    <center> <h1>Information opérateur</h1></center>
     <form name="ModifierOperateur" action="Projet.do" method="post" style="width:65%;margin:auto;padding-bottom:15px;" onsubmit="return validation()" >
         <table align="center">
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Nom :</th>
-                <td colspan="2"><input type="text" name="nomModification"value="<%= operateur.getNom()%>" /></td>
+                <td colspan="2"><input type="text" name="nomInformation"value="<%= operateur.getNom()%>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Prénom :</th>
-                <td colspan="2"><input type="text" name="prenomModification" value="<%= operateur.getPrenom()%>" /></td>
+                <td colspan="2"><input type="text" name="prenomInformation" value="<%= operateur.getPrenom()%>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Login :</th>
-                <td colspan="2"><input type="text" name="loginModification"value="<%= operateur.getLogin()%>" /></td>
+                <td colspan="2"><input type="text" name="loginInformation"value="<%= operateur.getLogin()%>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Mot de passe :</th>
-                <td colspan="2"><input type="text" name="mdpModification" value="<%= operateur.getMdp()%>"/></td>
+                <td colspan="2"><input type="text" name="mdpInformation" value="<%= operateur.getMdp()%>"/></td>
             </tr>
-                <td colspan="2"><input type="hidden" name="idModification" value="<%= operateur.getId()%>" /></td>
+                <td colspan="2"><input type="hidden" name="idInformation" value="<%= operateur.getId()%>" /></td>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Administrateur</th>

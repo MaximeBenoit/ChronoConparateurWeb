@@ -1,4 +1,5 @@
 package client;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JSpinner;
 import metier.Montre;
 import metier.Operateur;
 import metier.OperateurService;
@@ -94,12 +96,12 @@ public class ProjetControler extends HttpServlet {
                         }
                     } else {
                         page = "/erreurConnexion.jsp";
-                        request.setAttribute("erreurPage", "erreurConnexion");
+                        request.setAttribute("erreurPage", "erreurMdp");
                     }
                 }
             } else {
                 page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "erreurConnexion");
+                request.setAttribute("erreurPage", "erreurLogin");
             }
         }
         /*   Xx Fin Connexion xX  */
@@ -143,15 +145,9 @@ public class ProjetControler extends HttpServlet {
                 }
             } else {
                 page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "ProblemeMdp");
+                request.setAttribute("erreurPage", "erreurMdpPasEgal");
             }
-
-
-
-
-
         }
-
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {
 
@@ -159,7 +155,7 @@ public class ProjetControler extends HttpServlet {
             System.out.println("Suppression id : " + id);
             if (id == null) {
                 page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "erreurSuppression");
+                request.setAttribute("erreurPage", "erreurSuppressionRapport");
             } else {
                 RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
 
@@ -174,32 +170,62 @@ public class ProjetControler extends HttpServlet {
         }
         /*   Xx Fin SupprimerRapport xX  */
 
-        /*   Xx Debut ModifierRapport xX  */
-        if ("Modifier Rapport".equals(doAction)) {
-            Rapport rapport = null;
-            String id = request.getParameter("modifierRapport");
-            System.out.println("id : " + id);
-            if (id == null) {
-                page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "erreurSuppression");
-            } else {
-                RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
+        /*   Xx Debut ModifierRapport xX  
+         if ("Modifier Rapport".equals(doAction)) {
+         Rapport rapport = null;
+         String id = request.getParameter("modifierRapport");
+         System.out.println("id : " + id);
+         if (id == null) {
+         page = "/erreurConnexion.jsp";
+         request.setAttribute("erreurPage", "erreurModificationRapport");
+         } else {
+         RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
 
-                try {
-                    rapport = rapportORMService.getById(Long.parseLong(id));
-                    System.out.println("rapport : " + rapport);
-                    page = "/ModifierRapport.jsp";
-                    request.setAttribute("rapport", rapport);
-                } catch (Exception ex) {
-                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-                System.out.println("Rapport : " + rapport);
-            }
-        }
+         try {
+         rapport = rapportORMService.getById(Long.parseLong(id));
+         System.out.println("rapport : " + rapport);
+         page = "/ModifierRapport.jsp";
+         request.setAttribute("rapport", rapport);
+         } catch (Exception ex) {
+         Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         System.out.println("Rapport : " + rapport);
+         }
+         }*/
         /*   Xx Fin ModifierRapport xX  */
 
 
-       
+        /*
+         if ("Modifier".equals(doActionModifierRapport)) {
+         RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
+         MontreORMService montreORMService = PhysiqueDataFactory.getMontreORMSrv();
+
+         Rapport rapport = new Rapport();
+         String fabricantMontre = request.getParameter("fabricantMontre");
+         String referenceMontre = request.getParameter("referenceMontre");
+         String referenceClient = request.getParameter("referenceClient");
+         String reference = request.getParameter("reference");
+         //rapport.getMontre().setFabricant(fabricantMontre);
+         Montre montre = new Montre();
+         try {
+         montre = montreORMService.getById(Long.parseLong(referenceMontre));
+         } catch (Exception ex) {
+         Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         montre.setId(Long.parseLong(referenceMontre));
+
+         rapport.setMontre(montre);
+         rapport.setDateUpdate(new Date());
+         rapport.setId(Long.parseLong(reference));
+         try {
+         rapportORMService.updateRapport(rapport);
+         } catch (Exception ex) {
+         Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+         }
+         page = "/TabRapport.jsp";
+         }
+         */
+        /*   Xx Fin ModifierRapport xX  */
 
         /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier Operateur".equals(doAction)) {
@@ -208,7 +234,7 @@ public class ProjetControler extends HttpServlet {
             System.out.println("id : " + id);
             if (id == null) {
                 page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "erreurSuppression");
+                request.setAttribute("erreurPage", "erreurModificationOperateur");
             } else {
                 OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
 
@@ -224,50 +250,16 @@ public class ProjetControler extends HttpServlet {
             }
         }
         /*   Xx Fin ModifierOperateur xX  */
-        
-         /*   Xx Debut ModifierRapport xX  */
-        if ("Modifier".equals(doActionModifierRapport)) {
-            RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
-            MontreORMService montreORMService = PhysiqueDataFactory.getMontreORMSrv();
-            
-            Rapport rapport = new Rapport();
-            String fabricantMontre = request.getParameter("fabricantMontre");
-            String referenceMontre = request.getParameter("referenceMontre");
-            String referenceClient = request.getParameter("referenceClient");
-            String reference = request.getParameter("reference");
-            //rapport.getMontre().setFabricant(fabricantMontre);
-            Montre montre = new Montre();
-            try {
-                montre = montreORMService.getById(Long.parseLong(referenceMontre));
-            } catch (Exception ex) {
-                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            montre.setId(Long.parseLong(referenceMontre));
-            
-            rapport.setMontre(montre);
-            rapport.setDateUpdate(new Date());
-            rapport.setId(Long.parseLong(reference));
-            try {
-                rapportORMService.updateRapport(rapport);
-            } catch (Exception ex) {
-                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            page = "/TabRapport.jsp";
-        }
-
-        /*   Xx Fin ModifierRapport xX  */
-        
-         /*   Xx Debut ModifierOperateur xX  */
+        /*   Xx Debut ModifierRapport xX  */
+        /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier".equals(doAction)) {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
-
             Operateur operateur = new Operateur();
             String nom = request.getParameter("nomModification");
             String prenom = request.getParameter("prenomModification");
             String login = request.getParameter("loginModification");
             String mdp = request.getParameter("mdpModification");
-            String id = request.getParameter("idModification2");
-            
+            String id = request.getParameter("idModification");
             boolean admin = false;
             String param = request.getParameter("checkOperateur");
             System.out.println("check : " + param);
@@ -277,22 +269,22 @@ public class ProjetControler extends HttpServlet {
                 admin = true;
             }
             System.out.println("admin : " + admin);
-                operateur.setNom(nom);
-                operateur.setPrenom(prenom);
-                operateur.setLogin(login);
-                operateur.setMdp(mdp);
-                operateur.setAdmin(admin);
-                operateur.setId(Long.parseLong(id));
-                try {
-                    operateurORMService.updateOperateur(operateur);
-                } catch (Exception ex) {
-                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-                }
+            operateur.setNom(nom);
+            operateur.setPrenom(prenom);
+           operateur.setLogin(login);
+            operateur.setMdp(mdp);
+            operateur.setAdmin(admin);
+            operateur.setId(Long.parseLong(id));
+            try {
+                operateurORMService.updateOperateur(operateur);
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
             page = "/TabOperateur.jsp";
         }
 
         /*   Xx Fin ModifierOperateur xX  */
-        
+
         /*   Xx Debut supprimerOperateur xX  */
         if ("Supprimer operateur".equals(doAction)) {//ModifierOperateur
             String id = request.getParameter("supprimerOperateur");
@@ -300,7 +292,7 @@ public class ProjetControler extends HttpServlet {
             System.out.println("Suppression id : " + id);
             if (id == null) {
                 page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "erreurSuppression");
+                request.setAttribute("erreurPage", "erreurSuppressionOperateur");
             } else {
                 OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
 
