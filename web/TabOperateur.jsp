@@ -17,15 +17,13 @@
         <title>Tableau operateur</title>
 </head>
 <body>
-    
-    <TABLE>
-        <CAPTION> Operateur </CAPTION> 
-        <TR> 
-            <TH> Opérateur </TH> 
-            <TH> Check </TH> 
-           
-        </TR>
+    <form name="Supprimer" action="Projet.do" method="post" style="width:65%;margin:auto;padding-bottom:15px;" onsubmit="return validation()" >
+<center><h1>Opérateur</h1></center>
+<br>
+<TABLE>
+
         <%
+        
             List<metier.Operateur> resp = new ArrayList<metier.Operateur>();
             OperateurService operateurs = MetierFactory.getOperateurServ();
             resp = operateurs.getAll();
@@ -38,17 +36,17 @@
                     isAdmin = "Opérateur";
                 }
                 out.print("<TR><TH><p align='left'><FONT size='2'>" +"Référence : "+ resp.get(i).getId() 
-                        +"<br>"+"Fonction : "+isAdmin 
-                        +"<br>"+"Login : "+resp.get(i).getLogin() 
-                        +"<br>"+"Mot de passe : "+resp.get(i).getMdp()
-                        +"<br>"+ "Nom : "+resp.get(i).getNom() 
-                        +"<br>"+"Prénom : "+resp.get(i).getPrenom() +"<br><br></TH>"
-                        + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerOperateur' value='" + resp.get(i).getId() + "'><input type='checkbox' name='checkOperateur'  /><br>"
-                        + "<input type='hidden' name='modifierOperateur' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Modifier Operateur'>"
+                        + "<br>"+"Fonction : "+isAdmin 
+                        + "<br>"+"Login : "+resp.get(i).getLogin() 
+                        + "<br>"+"Mot de passe : "+resp.get(i).getMdp()
+                        + "<br>"+ "Nom : "+resp.get(i).getNom() 
+                        + "<br>"+"Prénom : "+resp.get(i).getPrenom() +"<br><br></TH>"
+                        + "<TH>" + "<input type='checkbox' value='"+i+"' name='checkOperateur' /><br>"
                         + "</form>" + "</TH>"
-                        +"</FONT></p></TH></TR>");
+                        + "</FONT></p></TH></TR>");
             }
-                        /*+ "<TH>" + resp.get(i).getLogin() + "</TH>"
+                        /*"<input type='hidden' name='modifierOperateur' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Modifier Operateur'>"
+                        + "<TH>" + resp.get(i).getLogin() + "</TH>"
                         + "<TH>" + resp.get(i).getMdp() + "</TH>"
                         + "<TH>" + resp.get(i).getNom() + "</TH>"
                         + "<TH>" + resp.get(i).getPrenom() + "</TH>"
@@ -56,7 +54,9 @@
                         + "<input type='hidden' name='modifierOperateur' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Modifier Operateur'>"
                         + "</form>*/
         %>
+        
     </TABLE> 
-    
+        <input type="submit" name="do" value="Modifier Operateur"></input><input type="submit" name="do" value="Supprimer"></input>
+    </form>
 </body>
 </html>

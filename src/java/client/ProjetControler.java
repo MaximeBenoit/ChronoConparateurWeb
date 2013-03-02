@@ -2,7 +2,7 @@ package client;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -11,11 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JSpinner;
-import metier.Montre;
 import metier.Operateur;
 import metier.OperateurService;
-import metier.Rapport;
 import physique.data.*;
 
 /**
@@ -23,7 +20,7 @@ import physique.data.*;
  * @author maxime
  */
 public class ProjetControler extends HttpServlet {
-
+    private OperateurORMService operateurORMSrv = PhysiqueDataFactory.getOperateurORMSrv();
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -52,6 +49,7 @@ public class ProjetControler extends HttpServlet {
         }
 
         String doAction = request.getParameter("do");
+        System.out.println("DOACTION : "+doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
         /* if ("Inscription".equals(doAction)) {
          String nom = request.getParameter("nom");
@@ -286,18 +284,23 @@ public class ProjetControler extends HttpServlet {
         /*   Xx Fin ModifierOperateur xX  */
 
         /*   Xx Debut supprimerOperateur xX  */
-        if ("Supprimer operateur".equals(doAction)) {//ModifierOperateur
+        if ("Supprimer".equals(doAction)) {//ModifierOperateur
             String id = request.getParameter("supprimerOperateur");
-
-            System.out.println("Suppression id : " + id);
-            if (id == null) {
+            String checkOperateur = request.getParameter("checkOperateur");
+            List<Operateur> operateurs =null;
+            try {
+               operateurs= operateurORMSrv.getAll();
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("OPERATEUR A SUPPRIMER : "+operateurs.get(Integer.parseInt(checkOperateur)));
+            Operateur o = operateurs.get(Integer.parseInt(checkOperateur));
+            if (o.getId()==0 ) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurSuppressionOperateur");
             } else {
-                OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
-
                 try {
-                    operateurORMService.removeOperateur(operateurORMService.getById(Long.parseLong(id)));
+                    operateurORMSrv.removeOperateur(o);
                 } catch (Exception ex) {
                     Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                 }

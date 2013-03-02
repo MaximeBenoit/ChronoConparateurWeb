@@ -17,9 +17,12 @@
         <title>JSP Page</title>
     </head>
     <body>
+    
         <div class="table">
+            <center>
             <TABLE BORDER="1">
-                <CAPTION> Rapport </CAPTION> 
+                <CAPTION> Rapport </CAPTION>
+                
                 <TR> 
                     <TH> Référence </TH> 
                     <TH> Date de modification </TH> 
@@ -44,6 +47,7 @@
                                 + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerRapport' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' ></form></TH></TR>");}    
                 %>
             </TABLE> 
+    </center>
         </div>
     </body>
 </html>
