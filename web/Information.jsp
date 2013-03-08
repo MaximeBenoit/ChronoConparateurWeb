@@ -13,9 +13,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%
-            Object object = request.getAttribute("operateur");
+            Object object = request.getAttribute("information");
             Operateur operateur = (Operateur) object;
-
         %>
         <title>Information opérateur</title>
     </head>
@@ -44,16 +43,6 @@
                 <td colspan="2"><input type="text" name="mdpInformation" value="<%= operateur.getMdp()%>"/></td>
             </tr>
                 <td colspan="2"><input type="hidden" name="idInformation" value="<%= operateur.getId()%>" /></td>
-            <tr>
-                <td>&nbsp;</td>
-                <th align="right">Administrateur</th>
-                <% if (operateur.isAdmin()) {
-    %>
-                <td colspan="2"><input type="checkbox" name="checkOperateur" checked /></td>
-                    <% } else {%>
-                <td colspan="2"><input type="checkbox" name="checkOperateur"  /></td>
-                    <% }%>
-            </tr>
             <tr>
                 <td>&nbsp;</td>
                  

@@ -41,7 +41,7 @@ public class ProjetControler extends HttpServlet {
         String page = request.getParameter("page");
 //        String session = request.getParameter("session");
 //        request.setAttribute("sessionDroit", session);
-
+        Operateur o=null;
         if (page != null) {
             page = "/" + page + ".jsp";
         } else {
@@ -93,11 +93,13 @@ public class ProjetControler extends HttpServlet {
                             httpSession.setAttribute("sessionDroit", Boolean.TRUE);
                         } else {
                             page = "/TabRapport.jsp";
+                            
                             try {
-                                Operateur o = operateurORMSrv.getByLogin(login);
+                                 o = operateurORMSrv.getByLogin(login);
                             } catch (Exception ex) {
                                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                             }
+                            
                             HttpSession httpSession = request.getSession(true);
                             httpSession.setAttribute("sessionDroit", Boolean.FALSE);
 
@@ -112,6 +114,7 @@ public class ProjetControler extends HttpServlet {
                 request.setAttribute("erreurPage", "erreurLogin");
             }
         }
+       
         /*   Xx Fin Connexion xX  */
 
         /*   Xx Début Déconnexion xX  */
@@ -245,7 +248,7 @@ public class ProjetControler extends HttpServlet {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("OPERATEUR A modifier : "+operateurs.get(Integer.parseInt(checkOperateur)));
-            Operateur o = operateurs.get(Integer.parseInt(checkOperateur));
+           o = operateurs.get(Integer.parseInt(checkOperateur));
             if (o.getId() == 0) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurModificationOperateur");
@@ -307,7 +310,7 @@ public class ProjetControler extends HttpServlet {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
             System.out.println("OPERATEUR A SUPPRIMER : "+operateurs.get(Integer.parseInt(checkOperateur)));
-            Operateur o = operateurs.get(Integer.parseInt(checkOperateur));
+             o = operateurs.get(Integer.parseInt(checkOperateur));
             if (o.getId()==0 ) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurSuppressionOperateur");
@@ -322,7 +325,7 @@ public class ProjetControler extends HttpServlet {
         }
 
         /*   Xx Fin supprimerOperateur xX  */
-
+        request.setAttribute("information" ,o );
         request.setAttribute("contain", page);
         String template = "Dynamique";
         RequestDispatcher view = request.getRequestDispatcher("Template/" + template + "/main.jsp");
