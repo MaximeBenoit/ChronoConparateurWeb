@@ -4,7 +4,6 @@
     <div class="hautmenu">Menu</div><div class="fondmenu">
         <ul class="menu"> 
             <li><a href="Projet.do?page=TabRapport">Rapport</a></li>
-            <li><a href="Projet.do?page=addAccount">Modifier</a></li>
             <li><a href="Projet.do?page=Information">Information</a></li>
             <li><a href="Projet.do?page=TabOperateur">Administration</a></li>
             <!-- <li><a onclick="deco();return false;">Déconexion</a></li>-->

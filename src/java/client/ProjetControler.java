@@ -67,7 +67,12 @@ public class ProjetControler extends HttpServlet {
         if ("Connexion".equals(doAction)) {
             String login = request.getParameter("login");
             String mdp = request.getParameter("mdp");
-
+            List<Operateur> operateurs = null;
+            try {
+                operateurs = operateurORMSrv.getAll();
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
             try {
                 loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getLogin();
                 mdpBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getMdp();
@@ -88,6 +93,11 @@ public class ProjetControler extends HttpServlet {
                             httpSession.setAttribute("sessionDroit", Boolean.TRUE);
                         } else {
                             page = "/TabRapport.jsp";
+                            try {
+                                Operateur o = operateurORMSrv.getByLogin(login);
+                            } catch (Exception ex) {
+                                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                            }
                             HttpSession httpSession = request.getSession(true);
                             httpSession.setAttribute("sessionDroit", Boolean.FALSE);
 
@@ -227,24 +237,27 @@ public class ProjetControler extends HttpServlet {
 
         /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier Operateur".equals(doAction)) {
-            Operateur operateur = null;
-            String id = request.getParameter("modifierOperateur");
-            System.out.println("id : " + id);
-            if (id == null) {
+            String checkOperateur = request.getParameter("checkOperateur");
+             List<Operateur> operateurs = null;
+             try {
+               operateurs= operateurORMSrv.getAll();
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            System.out.println("OPERATEUR A modifier : "+operateurs.get(Integer.parseInt(checkOperateur)));
+            Operateur o = operateurs.get(Integer.parseInt(checkOperateur));
+            if (o.getId() == 0) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurModificationOperateur");
             } else {
-                OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
-
                 try {
-                    operateur = operateurORMService.getById(Long.parseLong(id));
-                    System.out.println("opérateur : " + operateur);
+                    System.out.println("opérateur : " + o);
                     page = "/Modifieroperateur.jsp";
-                    request.setAttribute("operateur", operateur);
+                    request.setAttribute("operateur", o);
                 } catch (Exception ex) {
                     Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                System.out.println("opérateur : " + operateur);
+                System.out.println("opérateur : " + o);
             }
         }
         /*   Xx Fin ModifierOperateur xX  */
