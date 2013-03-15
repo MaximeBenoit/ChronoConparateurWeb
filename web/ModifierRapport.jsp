@@ -30,17 +30,17 @@
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Fabricant montre :</th>
-                <td colspan="2"><input type="text" name="fabricantMontre"value="<%= rapport.getMontre().getFabricant() %>" /></td>
+                <td colspan="2"><input type="text" name="fabricantMontre"value="<%= rapport.getAcquisition().getMontre().getFabricant() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Référence montre :</th>
-                <td colspan="2"><input type="text" name="referenceMontre" value="<%= rapport.getMontre().getId() %>" /></td>
+                <td colspan="2"><input type="text" name="referenceMontre" value="<%= rapport.getAcquisition().getMontre().getId() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Référence client :</th>
-                <td colspan="2"><input type="text" name="referenceClient"value="<%= rapport.getMontre().getProprietaire().getId() %>" /></td>
+                <td colspan="2"><input type="text" name="referenceClient"value="<%= rapport.getAcquisition().getMontre().getProprietaire().getId() %>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>

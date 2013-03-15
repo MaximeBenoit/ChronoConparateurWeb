@@ -13,8 +13,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <%
-            Object object = request.getAttribute("information");
-            Operateur operateur = (Operateur) object;
+        
+            Object info =session.getAttribute("information");
+            Operateur operateur = (Operateur) info;
         %>
         <title>Information opérateur</title>
     </head>
