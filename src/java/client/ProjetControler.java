@@ -299,13 +299,13 @@ public class ProjetControler extends HttpServlet {
         }
 
         /*   Xx Fin ModifierOperateur xX  */
-        /*   Xx Debut ModifierInformtaion xX  */
+        /*   Xx Debut ModifierInformation xX  */
         if ("Modifier information".equals(doAction)) {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
             Operateur operateur = new Operateur();
             String nom = request.getParameter("nomInformation");
             String prenom = request.getParameter("prenomInformation");
-            String login = request.getParameter("loginInformation");
+            String login = request.getParameter("loginConfirmationHidden");
             Long id = null;
             String mdp = null;
             boolean isAdmin = false;
@@ -338,9 +338,11 @@ public class ProjetControler extends HttpServlet {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
             Operateur operateur = new Operateur();
             String login = request.getParameter("LoginHidden");
+            String mdpTest = request.getParameter("MdpActuel");
             String mdpNew = request.getParameter("NouveauMdp");
             String mdpConfirm = request.getParameter("ConfirmationMdp");
             Long id = null;
+            String mdpBdd = null;
             String nom = null, prenom = null;
             boolean isAdmin = false;
             try {
@@ -348,22 +350,28 @@ public class ProjetControler extends HttpServlet {
                 nom = operateurORMSrv.getByLogin(login).getNom();
                 prenom = operateurORMSrv.getByLogin(login).getPrenom();
                 isAdmin = operateurORMSrv.getByLogin(login).isAdmin();
+                mdpBdd = operateurORMSrv.getByLogin(login).getMdp();
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
-            if (mdpNew.equals(mdpConfirm)) {
-                operateur.setNom(nom);
-                operateur.setPrenom(prenom);
-                operateur.setLogin(login);
-                operateur.setMdp(mdpConfirm);
-                operateur.setAdmin(isAdmin);
-                operateur.setId(id);
-                try {
-                    operateurORMService.updateOperateur(operateur);
-                } catch (Exception ex) {
-                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            if (mdpBdd.equals(mdpTest)) {
+                if (mdpNew.equals(mdpConfirm)) {
+                    operateur.setNom(nom);
+                    operateur.setPrenom(prenom);
+                    operateur.setLogin(login);
+                    operateur.setMdp(mdpConfirm);
+                    operateur.setAdmin(isAdmin);
+                    operateur.setId(id);
+                    try {
+                        operateurORMService.updateOperateur(operateur);
+                    } catch (Exception ex) {
+                        Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    page = "/Information.jsp";
+                } else {
+                    page = "/erreurConnexion.jsp";
+                    request.setAttribute("erreurPage", "erreurMdpPasEgal");
                 }
-                page = "/Information.jsp";
             } else {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurMdpPasEgal");

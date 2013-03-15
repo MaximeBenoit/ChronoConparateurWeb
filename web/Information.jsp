@@ -35,7 +35,7 @@
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Login :</th>
-                <td colspan="2"><input type="text" name="loginInformation"  value="<%= operateur.getLogin()%>" /></td>
+                <td colspan="2"><input type="hidden" name="loginConfirmationHidden" value="<%= operateur.getLogin()%>"/><input type="text" name="loginInformation" disabled="disabled" value="<%= operateur.getLogin()%>" /></td>
             </tr>
           
                 <td>&nbsp;</td>

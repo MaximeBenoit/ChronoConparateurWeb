@@ -24,12 +24,12 @@ Created on : 31 janv. 2013, 19:52:41
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Login :</th>
-                <td colspan="2"><input type='hidden' name='LoginHidden' value="<%= operateur.getLogin()%>"/><input type="text" name="LoginConfirmation" disabled="disabled" value="<%= operateur.getLogin()%>" /></td>
+                <td colspan="2"><input type='hidden' name='LoginHidden' value="<%= operateur.getLogin()%>"/><input type="text" name="LoginConfirmation"  value="<%= operateur.getLogin()%>" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Mot de passe actuel :</th>
-                <td colspan="2"><input type="text" name="MdpActuel" disabled="disabled" value="<%= operateur.getMdp()%>" /></td>
+                <td colspan="2"><input type="text" name="MdpActuel" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
