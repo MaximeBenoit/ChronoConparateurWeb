@@ -96,13 +96,12 @@ public class ProjetControler extends HttpServlet {
                             
                             try {
                                  o = operateurORMSrv.getByLogin(login);
+                            HttpSession httpSession = request.getSession(true);
+                            httpSession.setAttribute("sessionDroit", Boolean.FALSE);
+                            httpSession.setAttribute("information", o);   
                             } catch (Exception ex) {
                                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                             }
-                            
-                            HttpSession httpSession = request.getSession(true);
-                            httpSession.setAttribute("sessionDroit", Boolean.FALSE);
-
                         }
                     } else {
                         page = "/erreurConnexion.jsp";
@@ -285,7 +284,7 @@ public class ProjetControler extends HttpServlet {
             System.out.println("admin : " + admin);
             operateur.setNom(nom);
             operateur.setPrenom(prenom);
-           operateur.setLogin(login);
+            operateur.setLogin(login);
             operateur.setMdp(mdp);
             operateur.setAdmin(admin);
             operateur.setId(Long.parseLong(id));
@@ -298,7 +297,37 @@ public class ProjetControler extends HttpServlet {
         }
 
         /*   Xx Fin ModifierOperateur xX  */
-
+        /*   Xx Debut ModifierInformtaion xX  */
+        if("Modifier information".equals(doAction)){
+            OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
+            Operateur operateur = new Operateur();
+            String nom = request.getParameter("nomInformation");
+            String prenom = request.getParameter("prenomInformation");
+            String login = request.getParameter("loginInformation");
+            Long id=null;
+            String mdp =null;
+            boolean isAdmin = false;
+            try {
+                id = operateurORMSrv.getByLogin(login).getId();
+                mdp = operateurORMSrv.getByLogin(login).getMdp();
+                isAdmin = operateurORMSrv.getByLogin(login).isAdmin();
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            operateur.setNom(nom);
+            operateur.setPrenom(prenom);
+            operateur.setLogin(login);
+            operateur.setMdp(mdp);
+            operateur.setAdmin(isAdmin);
+            operateur.setId(id);
+            try {
+                operateurORMService.updateOperateur(operateur);
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+             page = "/Information.jsp";
+        }
+        /*   Xx Fin ModifierOperateur xX  */
         /*   Xx Debut supprimerOperateur xX  */
         if ("Supprimer".equals(doAction)) {//ModifierOperateur
             String id = request.getParameter("supprimerOperateur");

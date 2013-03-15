@@ -12,8 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <%
-        
+        <% 
             Object info =session.getAttribute("information");
             Operateur operateur = (Operateur) info;
         %>
@@ -36,18 +35,12 @@
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Login :</th>
-                <td colspan="2"><input type="text" name="loginInformation"value="<%= operateur.getLogin()%>" /></td>
+                <td colspan="2"><input type="text" name="loginInformation"  value="<%= operateur.getLogin()%>" /></td>
             </tr>
-            <tr>
-                <td>&nbsp;</td>
-                <th align="right">Mot de passe :</th>
-                <td colspan="2"><input type="text" name="mdpInformation" value="<%= operateur.getMdp()%>"/></td>
-            </tr>
-                <td colspan="2"><input type="hidden" name="idInformation" value="<%= operateur.getId()%>" /></td>
-            <tr>
+          
                 <td>&nbsp;</td>
                  
-                <th align="center" colspan="4"><input type="submit" name="do" value="Modifier"></input><input type= "reset" /></th>                
+                <th align="center" colspan="4"><input type="submit" name="do" value="Modifier information"></input><input type= "reset" /><input type="submit" name="do" value="Modifier mot de passe"></th>                
             </tr>
         </table>
     </form>
