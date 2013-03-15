@@ -20,7 +20,9 @@ import physique.data.*;
  * @author maxime
  */
 public class ProjetControler extends HttpServlet {
+
     private OperateurORMService operateurORMSrv = PhysiqueDataFactory.getOperateurORMSrv();
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,7 +43,7 @@ public class ProjetControler extends HttpServlet {
         String page = request.getParameter("page");
 //        String session = request.getParameter("session");
 //        request.setAttribute("sessionDroit", session);
-        Operateur o=null;
+        Operateur o = null;
         if (page != null) {
             page = "/" + page + ".jsp";
         } else {
@@ -49,7 +51,7 @@ public class ProjetControler extends HttpServlet {
         }
 
         String doAction = request.getParameter("do");
-        System.out.println("DOACTION : "+doAction);
+        System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
         /* if ("Inscription".equals(doAction)) {
          String nom = request.getParameter("nom");
@@ -93,12 +95,12 @@ public class ProjetControler extends HttpServlet {
                             httpSession.setAttribute("sessionDroit", Boolean.TRUE);
                         } else {
                             page = "/TabRapport.jsp";
-                            
+
                             try {
-                                 o = operateurORMSrv.getByLogin(login);
-                            HttpSession httpSession = request.getSession(true);
-                            httpSession.setAttribute("sessionDroit", Boolean.FALSE);
-                            httpSession.setAttribute("information", o);   
+                                o = operateurORMSrv.getByLogin(login);
+                                HttpSession httpSession = request.getSession(true);
+                                httpSession.setAttribute("sessionDroit", Boolean.FALSE);
+                                httpSession.setAttribute("information", o);
                             } catch (Exception ex) {
                                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                             }
@@ -113,7 +115,7 @@ public class ProjetControler extends HttpServlet {
                 request.setAttribute("erreurPage", "erreurLogin");
             }
         }
-       
+
         /*   Xx Fin Connexion xX  */
 
         /*   Xx Début Déconnexion xX  */
@@ -240,14 +242,14 @@ public class ProjetControler extends HttpServlet {
         /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier Operateur".equals(doAction)) {
             String checkOperateur = request.getParameter("checkOperateur");
-             List<Operateur> operateurs = null;
-             try {
-               operateurs= operateurORMSrv.getAll();
+            List<Operateur> operateurs = null;
+            try {
+                operateurs = operateurORMSrv.getAll();
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("OPERATEUR A modifier : "+operateurs.get(Integer.parseInt(checkOperateur)));
-           o = operateurs.get(Integer.parseInt(checkOperateur));
+            System.out.println("OPERATEUR A modifier : " + operateurs.get(Integer.parseInt(checkOperateur)));
+            o = operateurs.get(Integer.parseInt(checkOperateur));
             if (o.getId() == 0) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurModificationOperateur");
@@ -298,14 +300,14 @@ public class ProjetControler extends HttpServlet {
 
         /*   Xx Fin ModifierOperateur xX  */
         /*   Xx Debut ModifierInformtaion xX  */
-        if("Modifier information".equals(doAction)){
+        if ("Modifier information".equals(doAction)) {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
             Operateur operateur = new Operateur();
             String nom = request.getParameter("nomInformation");
             String prenom = request.getParameter("prenomInformation");
             String login = request.getParameter("loginInformation");
-            Long id=null;
-            String mdp =null;
+            Long id = null;
+            String mdp = null;
             boolean isAdmin = false;
             try {
                 id = operateurORMSrv.getByLogin(login).getId();
@@ -325,22 +327,64 @@ public class ProjetControler extends HttpServlet {
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
-             page = "/Information.jsp";
+            page = "/Information.jsp";
         }
         /*   Xx Fin ModifierOperateur xX  */
+        /*   Xx Debut ModifierMdp xX  */
+        if ("Modifier mot de passe".equals(doAction)) {
+            page = "/ModifierMdp.jsp";
+        }
+        if ("Confirmer".equals(doAction)) {
+            OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
+            Operateur operateur = new Operateur();
+            String login = request.getParameter("LoginHidden");
+            String mdpNew = request.getParameter("NouveauMdp");
+            String mdpConfirm = request.getParameter("ConfirmationMdp");
+            Long id = null;
+            String nom = null, prenom = null;
+            boolean isAdmin = false;
+            try {
+                id = operateurORMSrv.getByLogin(login).getId();
+                nom = operateurORMSrv.getByLogin(login).getNom();
+                prenom = operateurORMSrv.getByLogin(login).getPrenom();
+                isAdmin = operateurORMSrv.getByLogin(login).isAdmin();
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            if (mdpNew.equals(mdpConfirm)) {
+                operateur.setNom(nom);
+                operateur.setPrenom(prenom);
+                operateur.setLogin(login);
+                operateur.setMdp(mdpConfirm);
+                operateur.setAdmin(isAdmin);
+                operateur.setId(id);
+                try {
+                    operateurORMService.updateOperateur(operateur);
+                } catch (Exception ex) {
+                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                page = "/Information.jsp";
+            } else {
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "erreurMdpPasEgal");
+            }
+
+
+        }
+        /*   Xx Fin ModifierMdp xX  */
         /*   Xx Debut supprimerOperateur xX  */
         if ("Supprimer".equals(doAction)) {//ModifierOperateur
             String id = request.getParameter("supprimerOperateur");
             String checkOperateur = request.getParameter("checkOperateur");
-            List<Operateur> operateurs =null;
+            List<Operateur> operateurs = null;
             try {
-               operateurs= operateurORMSrv.getAll();
+                operateurs = operateurORMSrv.getAll();
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("OPERATEUR A SUPPRIMER : "+operateurs.get(Integer.parseInt(checkOperateur)));
-             o = operateurs.get(Integer.parseInt(checkOperateur));
-            if (o.getId()==0 ) {
+            System.out.println("OPERATEUR A SUPPRIMER : " + operateurs.get(Integer.parseInt(checkOperateur)));
+            o = operateurs.get(Integer.parseInt(checkOperateur));
+            if (o.getId() == 0) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurSuppressionOperateur");
             } else {
@@ -354,7 +398,7 @@ public class ProjetControler extends HttpServlet {
         }
 
         /*   Xx Fin supprimerOperateur xX  */
-        request.setAttribute("information" ,o );
+        request.setAttribute("information", o);
         request.setAttribute("contain", page);
         String template = "Dynamique";
         RequestDispatcher view = request.getRequestDispatcher("Template/" + template + "/main.jsp");
