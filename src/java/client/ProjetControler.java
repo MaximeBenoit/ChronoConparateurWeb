@@ -162,17 +162,18 @@ public class ProjetControler extends HttpServlet {
         }
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {
-
-            String id = request.getParameter("supprimerRapport");
-            System.out.println("Suppression id : " + id);
-            if (id == null) {
+            String idMontre = request.getParameter("supprimerMontre");
+            String idRapport= request.getParameter("supprimerRapport");
+            System.out.println("Suppression id : " + idRapport);
+            if (idRapport == null) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurSuppressionRapport");
             } else {
                 RapportORMService rapportORMService = PhysiqueDataFactory.getRapportORMSrv();
-
+                MontreORMService montreORMService = PhysiqueDataFactory.getMontreORMSrv();
                 try {
-                    rapportORMService.removeRapport(rapportORMService.getById(Long.parseLong(id)));
+                    montreORMService.removeMontre(montreORMService.getById(Long.parseLong(idMontre)));
+                    rapportORMService.removeRapport(rapportORMService.getById(Long.parseLong(idRapport)));
                 } catch (Exception ex) {
                     Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
                 }

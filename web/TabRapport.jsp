@@ -4,6 +4,7 @@
     Author     : Maxime
 --%>
 
+<%@page import="metier.MontreService"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="metier.RapportService"%>
 <%@page import="metier.MetierFactory"%>
@@ -17,37 +18,41 @@
         <title>JSP Page</title>
     </head>
     <body>
-    
+
         <div class="table">
             <center>
-            <TABLE BORDER="1">
-                <CAPTION> Rapport </CAPTION>
-                
-                <TR> 
-                    <TH> Référence </TH> 
-                    <TH> Date de modification </TH> 
-                    <TH> Montre </TH> 
-                    <TH> Référence client </TH>  
-                    <TH> Opération </TH> 
-                </TR>
-                <%
-                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
-                    String compoMontre;
-                
-                    List<metier.Rapport> resp = new ArrayList<metier.Rapport>();
-                    RapportService rapports = MetierFactory.getRapportServ();
-                    resp = rapports.getAll();
-                    for (int i = 0; i < resp.size(); i++) {
-                        compoMontre = "Référence : " + resp.get(i).getAcquisition().getMontre().getId() + "\nFabricant : " + resp.get(i).getAcquisition().getMontre().getFabricant();
-                                
-                        out.print("<TR><TH>" + resp.get(i).getId() + "</TH>"
-                                + "<TH>" + sdf.format(resp.get(i).getDateUpdate()) + "</TH>"
-                                + "<TH>" + compoMontre + "</TH>"
-                                + "<TH>" + resp.get(i).getAcquisition().getMontre().getProprietaire().getId() + "</TH>"
-                                + "<TH>" + "<form action='Projet.do' method='POST'><input type='hidden' name='supprimerRapport' value='" + resp.get(i).getId() + "'><input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' ></form></TH></TR>");}    
-                %>
-            </TABLE> 
-    </center>
+                <TABLE BORDER="1">
+                    <CAPTION> Rapport </CAPTION>
+
+                    <TR> 
+                        <TH> Référence </TH> 
+                        <TH> Date de modification </TH> 
+                        <TH> Montre </TH> 
+                        <TH> Référence client </TH>  
+                        <TH> Opération </TH> 
+                    </TR>
+                    <%
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+                        String compoMontre;
+
+                        List<metier.Montre> resp = new ArrayList<metier.Montre>();
+                        MontreService montres = MetierFactory.getMontreServ();
+                        resp = montres.getAll();
+                        for (int i = 0; i < resp.size(); i++) {
+                            compoMontre = "Référence : " + resp.get(i).getId();
+
+                            out.print("<TR><TH>" + resp.get(i).getRapport().getId() + "</TH>"
+                                    + "<TH>" + sdf.format(resp.get(i).getRapport().getDateUpdate()) + "</TH>"
+                                    + "<TH>" + compoMontre + "</TH>"
+                                    + "<TH>" + resp.get(i).getProprietaire().getId() + "</TH>"
+                                    + "<TH>" + "<form action='Projet.do' method='POST'>"
+                                    + "<input type='hidden' name='supprimerRapport' value='" + resp.get(i).getRapport().getId() + "'>"
+                                    + "<input type ='hidden' name='supprimerMontre' value='" + resp.get(i).getId() + "'>"
+                                    + " <input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' ></form></TH></TR>");
+                        }
+                    %>
+                </TABLE> 
+            </center>
         </div>
     </body>
 </html>
