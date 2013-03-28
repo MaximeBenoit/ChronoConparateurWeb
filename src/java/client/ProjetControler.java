@@ -127,38 +127,39 @@ public class ProjetControler extends HttpServlet {
 
         /*   Xx Début Ajout opérateur xX  */
         if ("Ajout".equals(doAction)) {
-            OperateurService operateurORMService = metier.MetierFactory.getOperateurServ();
-            Operateur operateur = new Operateur();
-
-            String nomInscription = request.getParameter("nomInscription");
-            String prenomInscription = request.getParameter("prenomInscription");
-            String loginInscription = request.getParameter("loginInscription");
-            String mdpInscription = request.getParameter("mdpInscription");
-            String confirmMdpInscription = request.getParameter("confirmMdpInscription");
-            boolean isAdminInscription = false;
-            try {
-                loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(loginInscription).getLogin();
-            } catch (Exception ex) {
-                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            if (loginInscription.equals(loginBDD)) {
-                page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "loginExistant");
-            } else if (mdpInscription.equals(confirmMdpInscription)) {
-                operateur.setNom(nomInscription);
-                operateur.setPrenom(prenomInscription);
-                operateur.setLogin(loginInscription);
-                operateur.setMdp(mdpInscription);
-                operateur.setAdmin(isAdminInscription);
-                try {
-                    operateurORMService.addOperateur(operateur);
-                } catch (Exception ex) {
-                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                page = "/erreurConnexion.jsp";
-                request.setAttribute("erreurPage", "erreurMdpPasEgal");
-            }
+            
+//            OperateurService operateurORMService = metier.MetierFactory.getOperateurServ();
+//            Operateur operateur = new Operateur();
+//
+//            String nomInscription = request.getParameter("nomInscription");
+//            String prenomInscription = request.getParameter("prenomInscription");
+//            String loginInscription = request.getParameter("loginInscription");
+//            String mdpInscription = request.getParameter("mdpInscription");
+//            String confirmMdpInscription = request.getParameter("confirmMdpInscription");
+//            boolean isAdminInscription = false;
+//            try {
+//                loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(loginInscription).getLogin();
+//            } catch (Exception ex) {
+//                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            if (loginInscription.equals(loginBDD)) {
+//                page = "/erreurConnexion.jsp";
+//                request.setAttribute("erreurPage", "loginExistant");
+//            } else if (mdpInscription.equals(confirmMdpInscription)) {
+//                operateur.setNom(nomInscription);
+//                operateur.setPrenom(prenomInscription);
+//                operateur.setLogin(loginInscription);
+//                operateur.setMdp(mdpInscription);
+//                operateur.setAdmin(isAdminInscription);
+//                try {
+//                    operateurORMService.addOperateur(operateur);
+//                } catch (Exception ex) {
+//                    Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } else {
+//                page = "/erreurConnexion.jsp";
+//                request.setAttribute("erreurPage", "erreurMdpPasEgal");
+//            }
         }
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {
