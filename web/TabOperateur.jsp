@@ -28,22 +28,22 @@
                 List<metier.Operateur> resp = new ArrayList<metier.Operateur>();
                 OperateurService operateurs = MetierFactory.getOperateurServ();
                 resp = operateurs.getAll();
-                String isAdmin = null;
+                String fonction = null;
                 Integer cpt = 0;
 
                 for (int i = 0; i < (resp.size() / 3) + 1; i++) {
                     Integer j;
-                    if (resp.get(i).isAdmin()) {
-                        isAdmin = "Admin";
-                    } else {
-                        isAdmin = "Opérateur";
-                    }
+                    
                     out.print("<TR>");
                     for (j = 0; j < 3 & cpt < resp.size(); j++) {
-
+                        if (resp.get(cpt).isAdmin()) {
+                        fonction = "Admin";
+                    } else {
+                        fonction = "Opérateur";
+                    }
                         if (j < resp.size()) {
                             out.print("<TD  style='width:  120px;'><p align='left'><FONT size='2'>" + "Référence : " + resp.get(cpt).getId()
-                                    + "<br>" + "Fonction : " + isAdmin
+                                    + "<br>" + "Fonction : " + fonction
                                     + "<br>" + "Login : " + resp.get(cpt).getLogin()
                                     + "<br>" + "Mot de passe : " + resp.get(cpt).getMdp()
                                     + "<br>" + "Nom : " + resp.get(cpt).getNom()

@@ -24,6 +24,7 @@ public class ProjetControler extends HttpServlet {
 
     private OperateurORMService operateurORMSrv = PhysiqueDataFactory.getOperateurORMSrv();
     AjoutOperateur ajoutOperateurSrv = new AjoutOperateur();
+
     /**
      * Processes requests for both HTTP
      * <code>GET</code> and
@@ -41,6 +42,9 @@ public class ProjetControler extends HttpServlet {
         Long idBDD = null;
         String mdpBDD = null;
         boolean IsAdmin = false;
+        long idMontreBdd;
+        long idRapportBdd = 0;
+        long idClient;
         String page = request.getParameter("page");
 //        String session = request.getParameter("session");
 //        request.setAttribute("sessionDroit", session);
@@ -80,6 +84,7 @@ public class ProjetControler extends HttpServlet {
                 loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getLogin();
                 mdpBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getMdp();
                 IsAdmin = metier.MetierFactory.getOperateurServ().getByLogin(login).isAdmin();
+
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -128,7 +133,7 @@ public class ProjetControler extends HttpServlet {
 
         /*   Xx Début Ajout opérateur xX  */
         if ("Ajout".equals(doAction)) {
-           
+
             OperateurService operateurORMService = metier.MetierFactory.getOperateurServ();
             Operateur operateur = new Operateur();
 
@@ -162,10 +167,33 @@ public class ProjetControler extends HttpServlet {
                 request.setAttribute("erreurPage", "erreurMdpPasEgal");
             }
         }
+        /*   Xx Debut recherche rapport xX  */
+        if ("Ok".equals(doAction)) {
+
+            String element = request.getParameter("recherche");
+            String id = request.getParameter("inputRecherche");
+            try {
+                if (element.equals("reference")) {
+                    idRapportBdd = metier.MetierFactory.getRapportServ().getById(Long.parseLong(id)).getId();
+                    if (idRapportBdd == Long.parseLong(id)) {
+                        request.setAttribute("idRecherche", id);
+                        request.setAttribute("type", element);
+                        page= "/TabRapport.jsp";
+                    }
+                } else if (element.equals("montre")) {
+                    idMontreBdd = metier.MetierFactory.getMontreServ().getById(Long.parseLong(id)).getId();
+                } else if (element.equals("referenceClient")) {
+                    idClient = metier.MetierFactory.getClientServ().getById(Long.parseLong(id)).getId();
+                }
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        /*   Xx Fin recherche rapport xX  */
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {
             String idMontre = request.getParameter("supprimerMontre");
-            String idRapport= request.getParameter("supprimerRapport");
+            String idRapport = request.getParameter("supprimerRapport");
             System.out.println("Suppression id : " + idRapport);
             if (idRapport == null) {
                 page = "/erreurConnexion.jsp";

@@ -4,6 +4,8 @@
     Author     : Maxime
 --%>
 
+<%@page import="metier.Rapport"%>
+<%@page import="metier.Montre"%>
 <%@page import="metier.MontreService"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="metier.RapportService"%>
@@ -18,12 +20,22 @@
         <title>JSP Page</title>
     </head>
     <body>
-
         <div class="table">
+
+            <center><h1> Rapport </h1><br></center>
+
             <center>
                 <TABLE BORDER="1">
-                    <CAPTION> Rapport </CAPTION>
-
+                    <form action='Projet.do' method='POST'>
+                        <input type="text" name="inputRecherche">
+                        <select name="recherche"> 
+                            <option value="reference">Référence</option> 
+                            <option value="montre">Montre</option> 
+                            <option value="referenceClient">Référence client</option> 
+                        </select>
+                        <input type="hidden" value="">
+                        <input type="submit" name="do"value="Ok">
+                    </form>
                     <TR> 
                         <TH> Référence </TH> 
                         <TH> Date de modification </TH> 
@@ -32,9 +44,26 @@
                         <TH> Opération </TH> 
                     </TR>
                     <%
+
+                        String id = (String) request.getAttribute("idRecherche");
+                        String element = (String) request.getAttribute("type");
+                        if (element.equals("reference")) {
+                            if ((Long.parseLong(id)!=0)) {
+                                Montre montre = MetierFactory.getMontreServ().getById(Long.parseLong(id));
+                                /* out.print("<TR><TH>" + rapport.getId()+ "</TH>"
+                                    + "<TH>" + rapport.getDateUpdate() + "</TH>"
+                                    + "<TH>" + rapport.get + "</TH>"
+                                    + "<TH>" + resp.get(i).getProprietaire().getId() + "</TH>");*/
+                            }
+                        } else if (element.equals("montre")) {
+                            if (id != null) {
+                            }
+                        } else if (element.equals("referenceClient")) {
+                            if (id != null) {
+                            }
+                        }
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                         String compoMontre;
-
                         List<metier.Montre> resp = new ArrayList<metier.Montre>();
                         MontreService montres = MetierFactory.getMontreServ();
                         resp = montres.getAll();
