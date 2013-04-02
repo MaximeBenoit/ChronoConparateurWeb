@@ -101,10 +101,12 @@
         </TABLE> 
 
 
-        <div style="width: 600px;
-             "><center>
+        <div style="width: 600px;"><center>
                 <input type="submit" name="do" value="Modifier Operateur">
 
-                </input><input type="submit" name="do" value="Supprimer"></input></center></div></form>
+                <input type="submit" name="do" value="Supprimer"></center></div></form>
+        <div style ="width: 140px;">
+            <center><input type="submit" name="do" value="Suivant"></center>
+        </div>
 </body>
 </html>
