@@ -58,17 +58,6 @@ public class ProjetControler extends HttpServlet {
         String doAction = request.getParameter("do");
         System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
-        /* if ("Inscription".equals(doAction)) {
-         String nom = request.getParameter("nom");
-         String password = request.getParameter("mdp1");
-
-         Account account = new Account(nom, password, 1);
-         try {
-         manager.add(account);
-         } catch (Exception ex) {
-         Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
-         }
-         }*/
 
         /*   Xx Debut Connexion xX  */
         if ("Connexion".equals(doAction)) {
@@ -92,9 +81,6 @@ public class ProjetControler extends HttpServlet {
                 if (loginBDD.equals(login)) {
                     if (mdpBDD.equals(mdp)) {
                         if (IsAdmin == true) {
-
-
-//                            request.setAttribute("sessionDroit", "2");
 
                             page = "/TabRapport.jsp";
                             HttpSession httpSession = request.getSession(true);
@@ -121,7 +107,6 @@ public class ProjetControler extends HttpServlet {
                 request.setAttribute("erreurPage", "erreurLogin");
             }
         }
-
         /*   Xx Fin Connexion xX  */
 
         /*   Xx Début Déconnexion xX  */
@@ -133,10 +118,8 @@ public class ProjetControler extends HttpServlet {
 
         /*   Xx Début Ajout opérateur xX  */
         if ("Ajout".equals(doAction)) {
-
             OperateurService operateurORMService = metier.MetierFactory.getOperateurServ();
             Operateur operateur = new Operateur();
-
             String nomInscription = request.getParameter("nomInscription");
             String prenomInscription = request.getParameter("prenomInscription");
             String loginInscription = request.getParameter("loginInscription");
@@ -169,7 +152,6 @@ public class ProjetControler extends HttpServlet {
         }
         /*   Xx Debut recherche rapport xX  */
         if ("Ok".equals(doAction)) {
-
             String element = request.getParameter("recherche");
             String id = request.getParameter("inputRecherche");
             try {
@@ -178,7 +160,7 @@ public class ProjetControler extends HttpServlet {
                     if (idRapportBdd == Long.parseLong(id)) {
                         request.setAttribute("idRecherche", id);
                         request.setAttribute("type", element);
-                        page= "/TabRapport.jsp";
+                        page = "/TabRapport.jsp";
                     }
                 } else if (element.equals("montre")) {
                     idMontreBdd = metier.MetierFactory.getMontreServ().getById(Long.parseLong(id)).getId();
@@ -190,6 +172,7 @@ public class ProjetControler extends HttpServlet {
             }
         }
         /*   Xx Fin recherche rapport xX  */
+
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {
             String idMontre = request.getParameter("supprimerMontre");
@@ -270,7 +253,7 @@ public class ProjetControler extends HttpServlet {
          */
         /*   Xx Fin ModifierRapport xX  */
 
-        /*   Xx Debut ModifierOperateur xX  */
+        /*   Xx Debut ModifierTabOperateur xX  */
         if ("Modifier Operateur".equals(doAction)) {
             String checkOperateur = request.getParameter("checkOperateur");
             List<Operateur> operateurs = null;
@@ -295,8 +278,8 @@ public class ProjetControler extends HttpServlet {
                 System.out.println("opérateur : " + o);
             }
         }
-        /*   Xx Fin ModifierOperateur xX  */
-        /*   Xx Debut ModifierRapport xX  */
+        /*   Xx Fin ModifierTabOperateur xX  */
+
         /*   Xx Debut ModifierOperateur xX  */
         if ("Modifier".equals(doAction)) {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
@@ -330,6 +313,7 @@ public class ProjetControler extends HttpServlet {
         }
 
         /*   Xx Fin ModifierOperateur xX  */
+
         /*   Xx Debut ModifierInformation xX  */
         if ("Modifier information".equals(doAction)) {
             OperateurORMService operateurORMService = PhysiqueDataFactory.getOperateurORMSrv();
@@ -361,6 +345,7 @@ public class ProjetControler extends HttpServlet {
             page = "/Information.jsp";
         }
         /*   Xx Fin ModifierOperateur xX  */
+
         /*   Xx Debut ModifierMdp xX  */
         if ("Modifier mot de passe".equals(doAction)) {
             page = "/ModifierMdp.jsp";
@@ -407,10 +392,9 @@ public class ProjetControler extends HttpServlet {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "erreurMdpPasEgal");
             }
-
-
         }
         /*   Xx Fin ModifierMdp xX  */
+
         /*   Xx Debut supprimerOperateur xX  */
         if ("Supprimer".equals(doAction)) {//ModifierOperateur
             String id = request.getParameter("supprimerOperateur");
@@ -435,7 +419,6 @@ public class ProjetControler extends HttpServlet {
                 page = "/TabOperateur.jsp";
             }
         }
-
         /*   Xx Fin supprimerOperateur xX  */
         request.setAttribute("information", o);
         request.setAttribute("contain", page);
