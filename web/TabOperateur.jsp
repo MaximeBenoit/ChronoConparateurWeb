@@ -4,6 +4,7 @@
     Author     : Maxime
 --%>
 
+<%@page import="metier.Operateur"%>
 <%@page import="metier.OperateurService"%>
 <%@page import="metier.RapportService"%>
 <%@page import="metier.MetierFactory"%>
@@ -22,10 +23,31 @@
 
         <br>
         <TABLE style="width:  700px;" BORDER="1">
+        <%--     <form action='Projet.do' method='POST'>
+                <input type="text" name="inputRechercheOperateur">
+                <select name="rechercherOperateur"> 
+                    <option value="ref">Référence</option> 
+                    <option value="login">Identifiant</option> 
+                </select>
 
+                <input type="submit" name="do"value="Ok">
+
+                <input type="submit" name="do" value="Afficher tout">
+            </form> --%>
             <%
 
                 List<metier.Operateur> resp = new ArrayList<metier.Operateur>();
+               /* String value = (String) request.getAttribute("idRecherche");
+                String element = (String) request.getAttribute("type");
+                if (value != null) {
+                    if (element.equals("ref")) {
+                        Operateur operateur = MetierFactory.getOperateurServ().getById(Long.parseLong(value));
+                         resp.add(operateur);
+                    }else if (element.equals("login")){
+                        Operateur operateur = MetierFactory.getOperateurServ().getByLogin(value);
+                         resp.add(operateur);
+                    }
+                }*/
                 OperateurService operateurs = MetierFactory.getOperateurServ();
                 resp = operateurs.getAll();
                 String fonction = null;
@@ -33,14 +55,14 @@
 
                 for (int i = 0; i < (resp.size() / 3) + 1; i++) {
                     Integer j;
-                    
+
                     out.print("<TR>");
                     for (j = 0; j < 3 & cpt < resp.size(); j++) {
                         if (resp.get(cpt).isAdmin()) {
-                        fonction = "Admin";
-                    } else {
-                        fonction = "Opérateur";
-                    }
+                            fonction = "Admin";
+                        } else {
+                            fonction = "Opérateur";
+                        }
                         if (j < resp.size()) {
                             out.print("<TD  style='width:  120px;'><p align='left'><FONT size='2'>" + "Référence : " + resp.get(cpt).getId()
                                     + "<br>" + "Fonction : " + fonction

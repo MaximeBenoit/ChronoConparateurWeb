@@ -45,6 +45,7 @@ public class ProjetControler extends HttpServlet {
         long idMontreBdd;
         long idRapportBdd = 0;
         long idClient;
+        long idOperateur;
         String page = request.getParameter("page");
 //        String session = request.getParameter("session");
 //        request.setAttribute("sessionDroit", session);
@@ -152,26 +153,71 @@ public class ProjetControler extends HttpServlet {
         }
         /*   Xx Debut recherche rapport xX  */
         if ("Ok".equals(doAction)) {
+
             String element = request.getParameter("recherche");
-            String id = request.getParameter("inputRecherche");
+            String valueRecherche = request.getParameter("inputRecherche");
+//            String elementOperateur = request.getParameter("rechercherOperateur");
+//            String valueRechercheOperateur = request.getParameter("inputRechercheOperateur");
             try {
-                if (element.equals("reference")) {
-                    idRapportBdd = metier.MetierFactory.getRapportServ().getById(Long.parseLong(id)).getId();
-                    if (idRapportBdd == Long.parseLong(id)) {
-                        request.setAttribute("idRecherche", id);
-                        request.setAttribute("type", element);
-                        page = "/TabRapport.jsp";
+                if (!"".equals(valueRecherche)) {
+                    if (element.equals("reference")) {
+                        idRapportBdd = metier.MetierFactory.getRapportServ().getById(Long.parseLong(valueRecherche)).getId();
+                        if (idRapportBdd == Long.parseLong(valueRecherche)) {
+                            request.setAttribute("idRecherche", valueRecherche);
+                            request.setAttribute("type", element);
+                            page = "/TabRapport.jsp";
+                        }
+                    } else if (element.equals("montre")) {
+                        idMontreBdd = metier.MetierFactory.getMontreServ().getById(Long.parseLong(valueRecherche)).getId();
+                        if (idMontreBdd == Long.parseLong(valueRecherche)) {
+                            request.setAttribute("idRecherche", valueRecherche);
+                            request.setAttribute("type", element);
+                            page = "/TabRapport.jsp";
+                        }
+                    } else if (element.equals("referenceClient")) {
+                        idClient = metier.MetierFactory.getClientServ().getById(Long.parseLong(valueRecherche)).getId();
+                        if (idClient == Long.parseLong(valueRecherche)) {
+                            request.setAttribute("idRecherche", valueRecherche);
+                            request.setAttribute("type", element);
+                            page = "/TabRapport.jsp";
+                        }
                     }
-                } else if (element.equals("montre")) {
-                    idMontreBdd = metier.MetierFactory.getMontreServ().getById(Long.parseLong(id)).getId();
-                } else if (element.equals("referenceClient")) {
-                    idClient = metier.MetierFactory.getClientServ().getById(Long.parseLong(id)).getId();
+                } else {
+                    page = "/erreurConnexion.jsp";
+                    request.setAttribute("erreurPage", "elementIsNull");
                 }
+//                if(elementOperateur != null){
+//                if (elementOperateur.equals("ref")) {
+//                    idOperateur = metier.MetierFactory.getOperateurServ().getById(Long.parseLong(valueRechercheOperateur)).getId();
+//                    if (idOperateur == Long.parseLong(valueRechercheOperateur)) {
+//                        request.setAttribute("idRecherche", valueRechercheOperateur);
+//                        request.setAttribute("type", elementOperateur);
+//                        page = "/TabOperateur.jsp";
+//                    }
+//                } else if (elementOperateur.equals("login")) {
+//                    String login = metier.MetierFactory.getOperateurServ().getById(Long.parseLong(valueRechercheOperateur)).getLogin();
+//                    if (login.equals(valueRechercheOperateur)) {
+//                        request.setAttribute("idRecherche", valueRechercheOperateur);
+//                        request.setAttribute("type", elementOperateur);
+//                        page = "/TabOperateur.jsp";
+//                    }
+//                }
+//            }else{
+//                
+//            }
             } catch (Exception ex) {
+                   page = "/erreurConnexion.jsp";
+                   request.setAttribute("erreurPage", "elementIsNull");
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         /*   Xx Fin recherche rapport xX  */
+
+        /*   Xx Debut Afficher tout xX  */
+        if ("Afficher tout".equals(doAction)) {
+            page = "/TabRapport.jsp";
+        }
+        /*   Xx Fin Afficher tout xX  */
 
         /*   Xx Debut SupprimerRapport xX  */
         if ("Supprimer rapport".equals(doAction)) {

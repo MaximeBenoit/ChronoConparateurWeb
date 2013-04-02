@@ -33,8 +33,11 @@
         %>
         Confiramtion de mot de passe invalide.
         <%}
+        if(erreur == "elementIsNull"){
         %>
-
+        Veuillez entrer un élément.
+        <% }
+        %>
         
     <ul class="menu"> 
         <li><a href="javascript:history.go(-1)">Ok</a></li>

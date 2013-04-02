@@ -75,8 +75,8 @@ ul#menuhorizon li a:hover {
      background: url(images/bouton.png) bottom no-repeat;
 }
 input[type="submit"]{
-         display: block;
-	 width:132px;
+         /*display: compact;*/
+	 width:125px;
 	 color: #FFF;
 	 text-decoration: none;
 	 background:url(images/menu.png) top no-repeat;
@@ -89,7 +89,7 @@ input[type="submit"]:hover{
 }
 input[type="reset"]{
          display: block;
-	 width:132px;
+	 width:125px;
 	 color: #FFF;
 	 text-decoration: none;
 	 background:url(images/menu.png) top no-repeat;
