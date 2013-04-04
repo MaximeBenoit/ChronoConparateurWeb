@@ -32,32 +32,34 @@
                             <option value="montre">Montre</option> 
                             <option value="referenceClient">Référence client</option> 
                         </select>
-                       
+
                         <input type="submit" name="do"value="Ok">
-                        
+
                         <input type="submit" name="do" value="Afficher tout">
                     </form>
 
                     <TR> 
-                        <TH> Référence </TH> 
+                        <TH> Référence </TH>
                         <TH> Date de modification </TH> 
                         <TH> Montre </TH> 
                         <TH> Référence client </TH>  
                         <TH> Opération </TH> 
                     </TR>
-                    <%                        
-                        
+                    <%
                         String id = (String) request.getAttribute("idRecherche");
                         String element = (String) request.getAttribute("type");
-                        
+                        Integer nb = (Integer) request.getAttribute("nb");
                         List<metier.Montre> resp = new ArrayList<metier.Montre>();
-                        
+                        List<metier.Montre> respB = new ArrayList<metier.Montre>();
+                        MontreService montres = MetierFactory.getMontreServ();
+                        if (nb == null) {
+                            nb = 0;
+                        }
                         if (id != null) {
                             if (element.equals("reference")) {
                                 Rapport rapport = MetierFactory.getRapportServ().getById(Long.parseLong(id));
                                 Montre montre = MetierFactory.getMontreServ().getByRapport(rapport);
                                 resp.add(montre);
-                                
                             } else if (element.equals("montre")) {
                                 Montre montre = MetierFactory.getMontreServ().getById(Long.parseLong(id));
                                 resp.add(montre);
@@ -67,22 +69,19 @@
                                 if (montre.size() > 1) {
                                     resp = montre;
                                 } else {
-                                    resp.add(montre.get(0));                                    
-                                }                                
-                                
+                                    resp.add(montre.get(0));
+                                }
                             }
                         } else {
-                            MontreService montres = MetierFactory.getMontreServ();
-                            resp = montres.getAll();
+                            
+                            resp = montres.getAll(nb, 10);
                             
                         }
-                        
+                        respB = montres.getAll();
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                         String compoMontre;
-                        
                         for (int i = 0; i < resp.size(); i++) {
                             compoMontre = "Référence : " + resp.get(i).getId();
-                            
                             out.print("<TR><TH>" + resp.get(i).getRapport().getId() + "</TH>"
                                     + "<TH>" + sdf.format(resp.get(i).getRapport().getDateUpdate()) + "</TH>"
                                     + "<TH>" + compoMontre + "</TH>"
@@ -94,6 +93,16 @@
                         }
                     %>
                 </TABLE> 
+                <form action='Projet.do' method='POST'>
+                   
+
+                    <input type="submit" name="do" value="Précédent" <%if (nb == 0){%> disabled <%}%> >
+                    
+                    <input type="hidden" name="nbList" value="<%= nb%>">
+                    
+                    <input type="submit" name="do" value="Suivant" <%if (nb+10 > respB.size()){%> disabled <%}%> >
+                           
+                </form>
             </center>
         </div>
     </body>

@@ -1,5 +1,5 @@
 <article>
     <center>
-        <img src="./Template/Dynamique/images/montre4.jpg">
+        <img src="./Template/Dynamique/images/montre.png">
     </center>    
 </article>

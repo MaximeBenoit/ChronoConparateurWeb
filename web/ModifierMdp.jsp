@@ -29,17 +29,17 @@ Created on : 31 janv. 2013, 19:52:41
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Mot de passe actuel :</th>
-                <td colspan="2"><input type="text" name="MdpActuel" /></td>
+                <td colspan="2"><input type="password" name="MdpActuel" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Nouveau mot de passe :</th>
-                <td colspan="2"><input type="text" name="NouveauMdp" /></td>
+                <td colspan="2"><input type="password" name="NouveauMdp" /></td>
             </tr>
             <tr>
                 <td>&nbsp;</td>
                 <th align="right">Confirmation mot de passe :</th>
-                <td colspan="2"><input type="text" name="ConfirmationMdp"/></td>
+                <td colspan="2"><input type="password" name="ConfirmationMdp"/></td>
             </tr>
 
             <td>&nbsp;</td>

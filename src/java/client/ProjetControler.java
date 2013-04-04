@@ -15,6 +15,8 @@ import metier.Operateur;
 import metier.OperateurService;
 import physique.data.*;
 import client.AjoutOperateur;
+import metier.MetierFactory;
+import metier.MontreService;
 
 /**
  *
@@ -60,6 +62,16 @@ public class ProjetControler extends HttpServlet {
         System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
 
+        if("Précédent".equals(doAction)){
+              String nbList=request.getParameter("nbList");
+              request.setAttribute("nb",  Integer.parseInt(nbList)-10);
+              page="/TabRapport.jsp";
+        }
+        if("Suivant".equals(doAction)){
+           String nbList=request.getParameter("nbList");          
+           request.setAttribute("nb",  Integer.parseInt(nbList)+10);
+           page="/TabRapport.jsp";  
+        }
         /*   Xx Debut Connexion xX  */
         if ("Connexion".equals(doAction)) {
             String login = request.getParameter("login");
