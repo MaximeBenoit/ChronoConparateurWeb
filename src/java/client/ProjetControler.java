@@ -62,7 +62,7 @@ public class ProjetControler extends HttpServlet {
         System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
 
-        if("Précédent".equals(doAction)){
+        if("Precedent".equals(doAction)){
               String nbList=request.getParameter("nbList");
               request.setAttribute("nb",  Integer.parseInt(nbList)-10);
               page="/TabRapport.jsp";
