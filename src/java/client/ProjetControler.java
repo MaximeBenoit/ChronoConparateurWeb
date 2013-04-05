@@ -62,12 +62,23 @@ public class ProjetControler extends HttpServlet {
         System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
 
-        if("Precedent".equals(doAction)){
-              String nbList=request.getParameter("nbList");
-              request.setAttribute("nb",  Integer.parseInt(nbList)-10);
-              page="/TabRapport.jsp";
+        if (">>".equals(doAction)) {
+            String finList = request.getParameter("finList");
+            request.setAttribute("nb", Integer.parseInt(finList)-10);
+            page = "/TabRapport.jsp";
         }
-        if("Suivant".equals(doAction)){
+          if ("<<".equals(doAction)) {
+            
+            request.setAttribute("nb", 0);
+            page = "/TabRapport.jsp";
+        }
+
+        if ("Precedent".equals(doAction)) {
+            String nbList = request.getParameter("nbList");
+            request.setAttribute("nb", Integer.parseInt(nbList) - 10);
+            page = "/TabRapport.jsp";
+        }
+        if ("Suivant".equals(doAction)) {
            String nbList=request.getParameter("nbList");          
            request.setAttribute("nb",  Integer.parseInt(nbList)+10);
            page="/TabRapport.jsp";  
@@ -218,8 +229,8 @@ public class ProjetControler extends HttpServlet {
 //                
 //            }
             } catch (Exception ex) {
-                   page = "/erreurConnexion.jsp";
-                   request.setAttribute("erreurPage", "elementIsNull");
+                page = "/erreurConnexion.jsp";
+                request.setAttribute("erreurPage", "elementIsNull");
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }

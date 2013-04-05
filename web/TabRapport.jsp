@@ -46,7 +46,7 @@
                         <TH> Opération </TH> 
                     </TR>
                     <%
-                        
+
                         String id = (String) request.getAttribute("idRecherche");
                         String element = (String) request.getAttribute("type");
                         Integer nb = (Integer) request.getAttribute("nb");
@@ -74,10 +74,10 @@
                                 }
                             }
                         } else {
-                            
+
                             resp = montres.getAll(nb, 10);
                         }
-                        
+
                         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
                         String compoMontre;
                         for (int i = 0; i < resp.size(); i++) {
@@ -90,20 +90,29 @@
                                     + "<input type='hidden' name='supprimerRapport' value='" + resp.get(i).getRapport().getId() + "'>"
                                     + "<input type ='hidden' name='supprimerMontre' value='" + resp.get(i).getId() + "'>"
                                     + " <input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' ></form></TH></TR>");
-                            
+
                         }
+
                     %>
                 </TABLE> 
+                <br>
                 <form action='Projet.do' method='POST'>
-                   
-
-                    <input type="submit" name="do" value="Precedent" <%if (nb == 0){%> disabled <%}%> >
-                    
-                    <input type="hidden" name="nbList" value="<%= nb%>">
-                    
-                    <input type="submit" name="do" value="Suivant" <%if (nb>=size){%> disabled <%}%> >
-                           
+                    <div style="float: left">
+                        <input  type="submit" name="do" style="width: 50px" value="<<" <%if (nb == 0) {%> disabled <%}%> >&nbsp
+                    </div>
+                    <div style="float: left">
+                        <input type="submit" name="do" style="width: 100px"value="Precedent" <%if (nb == 0) {%> disabled <%}%> >&nbsp
+                    </div>
+                     <input type="hidden" name="nbList" value="<%= nb%>">
+                    <div style="float: right">
+                        <input type="hidden" name="finList" value="<%= size%>">
+                        <input  type="submit" name="do" style="width: 50px" value=">>"<%if ((long) nb + 10 >= size) {%> disabled <%}%> >&nbsp
+                    </div> 
+                    <div style="float:  right">
+                        <input type="submit" name="do" style="width: 100px"value="Suivant" <%if ((long) nb + 10 >= size) {%> disabled <%}%> >&nbsp
+                    </div> 
                 </form>
+                <br>
             </center>
         </div>
     </body>
