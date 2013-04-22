@@ -105,8 +105,5 @@
                 <input type="submit" name="do" value="Modifier Operateur">
 
                 <input type="submit" name="do" value="Supprimer"></center></div></form>
-        <div style ="width: 140px;">
-            <center><input type="submit" name="do" value="Suivant"></center>
-        </div>
 </body>
 </html>

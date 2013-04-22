@@ -16,6 +16,7 @@ import metier.OperateurService;
 import physique.data.*;
 import client.AjoutOperateur;
 import metier.MetierFactory;
+import metier.Montre;
 import metier.MontreService;
 
 /**
@@ -23,7 +24,7 @@ import metier.MontreService;
  * @author maxime
  */
 public class ProjetControler extends HttpServlet {
-
+    
     private OperateurORMService operateurORMSrv = PhysiqueDataFactory.getOperateurORMSrv();
     AjoutOperateur ajoutOperateurSrv = new AjoutOperateur();
 
@@ -57,31 +58,31 @@ public class ProjetControler extends HttpServlet {
         } else {
             page = "/accueil.jsp";
         }
-
+        
         String doAction = request.getParameter("do");
         System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
-
+        
         if (">>".equals(doAction)) {
             String finList = request.getParameter("finList");
-            request.setAttribute("nb", Integer.parseInt(finList)-10);
+            request.setAttribute("nb", Integer.parseInt(finList) - 10);
             page = "/TabRapport.jsp";
         }
-          if ("<<".equals(doAction)) {
+        if ("<<".equals(doAction)) {
             
             request.setAttribute("nb", 0);
             page = "/TabRapport.jsp";
         }
-
+        
         if ("Precedent".equals(doAction)) {
             String nbList = request.getParameter("nbList");
             request.setAttribute("nb", Integer.parseInt(nbList) - 10);
             page = "/TabRapport.jsp";
         }
         if ("Suivant".equals(doAction)) {
-           String nbList=request.getParameter("nbList");          
-           request.setAttribute("nb",  Integer.parseInt(nbList)+10);
-           page="/TabRapport.jsp";  
+            String nbList = request.getParameter("nbList");            
+            request.setAttribute("nb", Integer.parseInt(nbList) + 10);
+            page = "/TabRapport.jsp";            
         }
         /*   Xx Debut Connexion xX  */
         if ("Connexion".equals(doAction)) {
@@ -97,7 +98,7 @@ public class ProjetControler extends HttpServlet {
                 loginBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getLogin();
                 mdpBDD = metier.MetierFactory.getOperateurServ().getByLogin(login).getMdp();
                 IsAdmin = metier.MetierFactory.getOperateurServ().getByLogin(login).isAdmin();
-
+                
             } catch (Exception ex) {
                 Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -105,13 +106,13 @@ public class ProjetControler extends HttpServlet {
                 if (loginBDD.equals(login)) {
                     if (mdpBDD.equals(mdp)) {
                         if (IsAdmin == true) {
-
+                            
                             page = "/TabRapport.jsp";
                             HttpSession httpSession = request.getSession(true);
                             httpSession.setAttribute("sessionDroit", Boolean.TRUE);
                         } else {
                             page = "/TabRapport.jsp";
-
+                            
                             try {
                                 o = operateurORMSrv.getByLogin(login);
                                 HttpSession httpSession = request.getSession(true);
@@ -174,9 +175,25 @@ public class ProjetControler extends HttpServlet {
                 request.setAttribute("erreurPage", "erreurMdpPasEgal");
             }
         }
+        /*  Xx Debut detail xX  */
+        if ("Detail".equals(doAction)) {
+            try {
+                String detail = request.getParameter("supprimerMontre");
+                Montre m = null;
+                MontreORMService montreORMService = PhysiqueDataFactory.getMontreORMSrv();
+                m=montreORMService.getById(Long.parseLong(detail));
+                request.setAttribute("detail", m);
+                page = "/Detail.jsp";
+            } catch (Exception ex) {
+                Logger.getLogger(ProjetControler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+        /*  Xx Fin detail xX  */
+
         /*   Xx Debut recherche rapport xX  */
         if ("Ok".equals(doAction)) {
-
+            
             String element = request.getParameter("recherche");
             String valueRecherche = request.getParameter("inputRecherche");
 //            String elementOperateur = request.getParameter("rechercherOperateur");
@@ -261,7 +278,7 @@ public class ProjetControler extends HttpServlet {
                 }
                 page = "/TabRapport.jsp";
             }
-
+            
         }
         /*   Xx Fin SupprimerRapport xX  */
 

@@ -24,7 +24,8 @@
         <div class="table">
             <center>
                 <TABLE BORDER="1"> 
-                    <center><h1> Rapport </h1><br></center>
+                    <center><h1 id="Rapport"> Rapport </h1><br></center>
+                    
                     <form action='Projet.do' method='POST'>
                         <input type="text" name="inputRecherche">
                         <select name="recherche"> 
@@ -89,14 +90,15 @@
                                     + "<TH>" + "<form action='Projet.do' method='POST'>"
                                     + "<input type='hidden' name='supprimerRapport' value='" + resp.get(i).getRapport().getId() + "'>"
                                     + "<input type ='hidden' name='supprimerMontre' value='" + resp.get(i).getId() + "'>"
-                                    + " <input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' ></form></TH></TR>");
+                                    + " <input type='submit' name='do' value='Supprimer rapport' style='vertical-align: middle' >"
+ + "                                    <br><input type ='submit' name='do' value='Detail' style='vertical-align: middle'></form></TH></TR>");
 
                         }
 
                     %>
                 </TABLE> 
                 <br>
-                <form action='Projet.do' method='POST'>
+                <form action='Projet.do' method='POST'> 
                     <div style="float: left">
                         <input  type="submit" name="do" style="width: 50px" value="<<" <%if (nb == 0) {%> disabled <%}%> >&nbsp
                     </div>
