@@ -5,6 +5,7 @@
         <ul class="menu"> 
             <li><a href="Projet.do?page=TabRapport#Rapport">Rapport</a></li>
             <li><a href="Projet.do?page=TabOperateur">Administration</a></li>
+            <li><a href="Projet.do?page=Inscription">Inscription</a></li>
             <!-- <li><a onclick="deco();return false;">Déconexion</a></li>-->
             <li><a  href="http://localhost:8080/ChronoConparateurWeb/Projet.do?do=Deconnexion">Déconnexion</a></li>
 
