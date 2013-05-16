@@ -4,7 +4,6 @@
                <div class="hautmenu">Menu</div><div class="fondmenu">
                     <ul class="menu"> 
                         <li><a href="Projet.do?page=connexionAccount">Connexion</a></li>
-                        <li><a href="Projet.do?page=Inscription">Inscription</a></li>
                     </ul>
              
 			 <br />
