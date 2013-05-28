@@ -11,13 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import metier.Montre;
 import metier.Operateur;
 import metier.OperateurService;
 import physique.data.*;
-import client.AjoutOperateur;
-import metier.MetierFactory;
-import metier.Montre;
-import metier.MontreService;
 
 /**
  *
@@ -26,7 +23,7 @@ import metier.MontreService;
 public class ProjetControler extends HttpServlet {
     
     private OperateurORMService operateurORMSrv = PhysiqueDataFactory.getOperateurORMSrv();
-    AjoutOperateur ajoutOperateurSrv = new AjoutOperateur();
+  
 
     /**
      * Processes requests for both HTTP
@@ -50,8 +47,6 @@ public class ProjetControler extends HttpServlet {
         long idClient;
         long idOperateur;
         String page = request.getParameter("page");
-//        String session = request.getParameter("session");
-//        request.setAttribute("sessionDroit", session);
         Operateur o = null;
         if (page != null) {
             page = "/" + page + ".jsp";
@@ -62,7 +57,7 @@ public class ProjetControler extends HttpServlet {
         String doAction = request.getParameter("do");
         System.out.println("DOACTION : " + doAction);
         String doActionModifierRapport = request.getParameter("doModifierRapport");
-        
+         /*   Xx Debut Paginnnatio xX  */
         if (">>".equals(doAction)) {
             String finList = request.getParameter("finList");
             request.setAttribute("nb", Integer.parseInt(finList) - 10);
@@ -84,6 +79,8 @@ public class ProjetControler extends HttpServlet {
             request.setAttribute("nb", Integer.parseInt(nbList) + 10);
             page = "/TabRapport.jsp";            
         }
+         /*   Xx Fin Connexion xX  */
+        
         /*   Xx Debut Connexion xX  */
         if ("Connexion".equals(doAction)) {
             String login = request.getParameter("login");
@@ -175,6 +172,7 @@ public class ProjetControler extends HttpServlet {
                 request.setAttribute("erreurPage", "erreurMdpPasEgal");
             }
         }
+         /*   Xx Fin  Ajout opérateur xX  */
         /*  Xx Debut detail xX  */
         if ("Detail".equals(doAction)) {
             try {
@@ -196,8 +194,6 @@ public class ProjetControler extends HttpServlet {
             
             String element = request.getParameter("recherche");
             String valueRecherche = request.getParameter("inputRecherche");
-//            String elementOperateur = request.getParameter("rechercherOperateur");
-//            String valueRechercheOperateur = request.getParameter("inputRechercheOperateur");
             try {
                 if (!"".equals(valueRecherche)) {
                     if (element.equals("reference")) {
@@ -226,25 +222,7 @@ public class ProjetControler extends HttpServlet {
                     page = "/erreurConnexion.jsp";
                     request.setAttribute("erreurPage", "elementIsNull");
                 }
-//                if(elementOperateur != null){
-//                if (elementOperateur.equals("ref")) {
-//                    idOperateur = metier.MetierFactory.getOperateurServ().getById(Long.parseLong(valueRechercheOperateur)).getId();
-//                    if (idOperateur == Long.parseLong(valueRechercheOperateur)) {
-//                        request.setAttribute("idRecherche", valueRechercheOperateur);
-//                        request.setAttribute("type", elementOperateur);
-//                        page = "/TabOperateur.jsp";
-//                    }
-//                } else if (elementOperateur.equals("login")) {
-//                    String login = metier.MetierFactory.getOperateurServ().getById(Long.parseLong(valueRechercheOperateur)).getLogin();
-//                    if (login.equals(valueRechercheOperateur)) {
-//                        request.setAttribute("idRecherche", valueRechercheOperateur);
-//                        request.setAttribute("type", elementOperateur);
-//                        page = "/TabOperateur.jsp";
-//                    }
-//                }
-//            }else{
-//                
-//            }
+//               
             } catch (Exception ex) {
                 page = "/erreurConnexion.jsp";
                 request.setAttribute("erreurPage", "elementIsNull");
@@ -430,7 +408,7 @@ public class ProjetControler extends HttpServlet {
             }
             page = "/Information.jsp";
         }
-        /*   Xx Fin ModifierOperateur xX  */
+        /*   Xx Fin ModifierInformation xX  */
 
         /*   Xx Debut ModifierMdp xX  */
         if ("Modifier mot de passe".equals(doAction)) {

@@ -6,7 +6,7 @@
 
             <li><a href="Projet.do?page=TabRapport#Rapport">Rapport</a></li>
             <li><a href="Projet.do?page=Information">Information</a></li>
-            <li><a  href="http://localhost:8080/ChronoConparateurWeb/Projet.do?do=Deconnexion">Déconnexion</a></li>
+            <li><a href="Projet.do?do=Deconnexion">Déconnexion</a></li>
         </ul>
 
     </div><div class="basmenu"></div>
